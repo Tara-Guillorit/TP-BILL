@@ -26,5 +26,62 @@ tres similaire, beaucoup de court reads
 bar codes : 8.74 unclassified
 
 
+groupe 8 :
+ 
+P90.8 nb de read : 801935
+
+echant P90 :
+-
+-
+9.3+4
+Qbit (ng/µL) :
+-
+-
+19.4
+ng/µL apres dilution :
+-
+-
+32.4
+Barcode :
+-
+- 
+12
+PycoQc (%) :
+-
+-
+3.88 
+nb de reads:
+-
+-
+200849
+
+
+Comment analiser les données:
+
+Analyse 2ndaire : 
+recherche de SV et SNP grace au pipe line
+
+Analyse 3aire :
+exploiter ces résultats:
+
+comparaison diff au cours du temps des sous-culture (P15 et P90 , P65 et P90, ...)
+comparaison dif entre les P90 avec diff stress thermique
+comparaison avant et apres les chocs thermiques (stress fait a P26)
+voir cinetique de taux d'aparition mutation de P30 à P90 (apres stress) ou P2 à P15 (avant stress)
+
+verifier si mutation est dans ORF ou non 
+Si oui, voir si modif effet du gene par modif du cadre de lecture
+
+
+ 
+!On a pas de temoin sans stress thermique (fait pendant l'absortion pendant 24h) pour garder la robustesse de l'experience (5 sous-echant pour chaque type de stress)
+Le stress elimine pop virale qui ne ont pas assez bonne fitness
+! c'est pas un virus "pur" c'est un ens de populations, avec des freq alleliques diffs 
+! pour pouvoir parler de freq allelique il faut que le nb soit assez important
+!donc mutation filter pour garder mutations avec les freq alleliques plus importantes
+
+GENOME DE REF : CyHv3 Italien annoté DQ657948.1 
+
+
 
 
