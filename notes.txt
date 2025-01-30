@@ -1,1 +1,30 @@
-test
+resultats:
+
+On a utiliser 15 barcodes
+l'extraction c'est du virus encapsulé + cel de carpe lissé
+
+pour le matin:
+
+pour all reads:
+5*10^6 reads pour l'ens
+1.35*10^10 bases pour l'ens
+longueur mediane des read de 724
+PHRED mediane de 15.9
+
+pass reads (on garde que les read de bonne qualite >10)
+
+beaucoup de read de taille 100 (carpe?)
+et beaucoup de read long (entre 1000 et 10k) (virus?)
+
+nombre de read par barcode: on a 15% de unclassified
+
+
+pour l'aprem: the best ;)
+
+tres similaire, beaucoup de court reads
+
+bar codes : 8.74 unclassified
+
+
+
+
