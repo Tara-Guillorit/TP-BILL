@@ -83,5 +83,25 @@ Le stress elimine pop virale qui ne ont pas assez bonne fitness
 GENOME DE REF : CyHv3 Italien annoté DQ657948.1 
 
 
+Format VCF 
+entête explique les diff etapes fait pour l'optenir 
+contig = seq de ref
+ALT = dif types de variation
+...
+CHROM = pour nous toujours 1
+POS = position de la mutation
+ID = de la mutation
+REF = les seqeunce de la reference a cette position
+ALT = la seqeunce muté
+QUAL = qualité
+...
+individus: ex :P30-5.trimed1000 : nom de lindifidu (on a enleve toutes les seq de moin de 1000 pour le P30 sous echantillon 5)
+peut avoir plusieur individus dans un meme VCF, on aura PASS si mutation presente dans l'indifidu et . si pas presente
+DV = mutation presente dans 
+DR = mutation pas presente dans 
+AF = frequence allelique 
+
+
+
 
 
