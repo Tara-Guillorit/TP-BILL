@@ -6,6 +6,8 @@ def variant_equal(v1, v2, similarity=0.5):
         v1, v2 (dict) : dictionnaire avec au minimum les clés "start", "end" et "svtype"
         similarity (float) : proportion de similarité entre 0 et 1
     
+    Return:
+        boolean : vrai si l'overlap est significatif et les types sont les mêmes, faux sinon
     
     """
     overlap_start = max(v1["start"], v2["start"])
@@ -21,6 +23,16 @@ def variant_equal(v1, v2, similarity=0.5):
 
 
 def group_variants(samples, min_sim=0.5):
+    """ Groupe les variants similaires ensemble
+
+    Args:
+        samples (list): une liste contenant, pour chaque échantillon (p90-1, p90-2, ...) une liste de variants
+        min_sim (float): similarité minimum pour décider de grouper deux variants
+
+    Return:
+        list : la liste des groupes des variants, chaque groupe représenté par une liste de tuple sous la forme (échantillon d'origine, variant)
+
+    """
     # merge toute les sv dans une liste de tuples (échantillon d'origin, variant)
     sv_total = [(s, v) for v in samples[s] for s in range(len(samples))]
     # tri les sv par position de départ
