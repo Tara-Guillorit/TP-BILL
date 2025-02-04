@@ -51,8 +51,8 @@ def list_interval ():
         #print (description.split("[")[4:6])
         location = description.split("[")[5][:-2].split("(")[-1].split("=")[-1].split(")")[0].split(",")
 
-    for interval in location:
-        list_of_intervals.append(interval.split(".."))
+        for interval in location:
+            list_of_intervals.append(interval.split(".."))
 
     return list_of_intervals
 
@@ -85,7 +85,10 @@ def list_pos_in_interval(liste_des_AF, liste_des_intervales):
 plt.figure(figsize=(40, 6))
 
 # Parcourir les données et tracer les ORF et les mutations
-for idx, (pos, mut_type, length, orf_interval) in enumerate(list_of_POS_and_ORF_interval):
+list_for_graph = list_pos_in_interval(list_AF(float(seuil_de_AF)),list_interval())
+
+
+for idx, (pos, mut_type, length, orf_interval) in enumerate(list_for_graph):
     # Tracer l'ORF (ligne horizontale)
     plt.hlines(y=idx, xmin=orf_interval[0], xmax=orf_interval[1], colors='blue', label='ORF' if idx == 0 else "")
 
