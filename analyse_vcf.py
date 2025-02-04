@@ -159,9 +159,9 @@ def extract_info ():
         # on extrait la position de la mutation : line[0]['pos']
         # on extrait le type de la mutation : line[0]['svtype']
         # on extrait la longueur de la mutation : line[0]['svlen']
-        # on extrait le nom de l'ORF : line[1]['protein_id']
+        # on extrait le nom de l'ORF : line[1]['locus_tag']
         # on extrait la ou les intervales de l'ORF : line[1]['location']
-        list_filter.append([ line[0]['pos'],line[0]['svtype'],line[0]['svlen'],line[1]['protein_id'],line[1]['location']])
+        list_filter.append([ line[0]['pos'],line[0]['svtype'],line[0]['svlen'],line[1]['locus_tag'],line[1]['location']])
     return list_filter
 
 print(extract_info())
