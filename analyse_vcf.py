@@ -4,6 +4,8 @@
 #pip intall matplotlib
 #pip install numpy
 
+#faire un fonction qui retourne le AF selon un seuil
+
 #lien du package : https://github.com/dridk/PyVCF3
 #https://github.com/Tara-Guillorit/TP-BILL
 
@@ -27,7 +29,7 @@ vcf_reader = vcf.Reader(open(doc_vcf,'r'))
 for record in vcf_reader:
     if (record.INFO['AF']>=float(seuil_de_AF)) : #verifie si le AF est superieur ou egal a ce seuil
         #on ajoute a la liste list_of_data les info pertinentes
-        list_of_info.append([record.INFO['AF'],record.ID,record.POS,record.INFO['SVTYPE'] ,record.INFO['SVLEN'],record.genotype('P65-8.trimed1000').data])
+        list_of_info.append([record.INFO['AF'],record.ID,record.POS,record.INFO['SVTYPE'] ,record.INFO['SVLEN']])
 liste_triee = sorted(list_of_info, key=lambda x: x[0], reverse = True) #trier la liste en ordre croissant des AF
 
 #pour voir le contenu de la liste list_of_info decommenter ceci :
