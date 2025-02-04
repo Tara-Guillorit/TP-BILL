@@ -16,8 +16,8 @@ import sys
 
 
 #On choisit une valuer minimale pour la freqeunce allelique AF:
-doc_vcf = sys.argv[0]
-seuil_de_AF = sys.argv[1]
+doc_vcf = sys.argv[1]
+seuil_de_AF = sys.argv[2]
 
 
 list_of_info = []
@@ -25,7 +25,7 @@ list_of_info = []
 vcf_reader = vcf.Reader(open(doc_vcf,'r'))
 #print("IAF ID POS TYPE LEN DATA")
 for record in vcf_reader:
-    if (record.INFO['AF']>=seuil_de_AF) : #verifie si le AF est superieur ou egal a ce seuil
+    if (record.INFO['AF']>=float(seuil_de_AF)) : #verifie si le AF est superieur ou egal a ce seuil
         #on ajoute a la liste list_of_data les info pertinentes
         list_of_info.append([record.INFO['AF'],record.ID,record.POS,record.INFO['SVTYPE'] ,record.INFO['SVLEN'],record.genotype('P65-8.trimed1000').data])
 liste_triee = sorted(list_of_info, key=lambda x: x[0], reverse = True) #trier la liste en ordre croissant des AF
