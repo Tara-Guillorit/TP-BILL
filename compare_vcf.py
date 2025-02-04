@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 def variant_equal(v1, v2, dist_thresold=0, sim_thresold=0.5):
     """ Détermine si la proportion de sites commun entre v1 et v2
@@ -16,20 +17,19 @@ def variant_equal(v1, v2, dist_thresold=0, sim_thresold=0.5):
     if v1["svtype"] != v2["svtype"]:
         return False
 
-    if v1["svtype"] == "INV":
-        return 
-    overlap_start = max(v1["pos"], v2["pos"])
-    overlap_end = min(v1["end"], v2["end"])
-    overlap_len = max(overlap_end - overlap_start, 0)
 
-    len_v1 = v1["end"] - v1["pos"]
-    len_v2 = v2["end"] - v2["pos"]
-    shortest_v = min(len_v1, len_v2)
+    if v1["svtype"] == "INS":
+        return abs(v1["pos"] - v2["pos"]) <= dist_thresold
+    else:
+        overlap_start = max(v1["pos"], v2["pos"])
+        overlap_end = min(v1["end"], v2["end"])
+        overlap_len = max(overlap_end - overlap_start, 0)
 
-    return overlap_len >= sim_thresold * shortest_v and v1["svtype"] == v2["svtype"]
+        shortest_v = min(abs(v1["svlen"]), abs(v2["svlen"]))
+        return overlap_len >= sim_thresold * shortest_v and v1["svtype"] == v2["svtype"]
 
 
-def group_variants(samples, min_sim=0.5):
+def group_variants(samples, max_dist=0, min_sim=0.5):
     """ Groupe les variants similaires ensemble
 
     Args:
@@ -41,9 +41,9 @@ def group_variants(samples, min_sim=0.5):
 
     """
     # merge toute les sv dans une liste de tuples (échantillon d'origin, variant)
-    sv_total = [(s, v) for v in samples[s] for s in range(len(samples))]
+    sv_total = [(s, v) for s in range(len(samples)) for v in samples[s]]
     # tri les sv par position de départ
-    sv_total = sorted(sv_total, lambda x: x[1]["pos"])
+    sv_total = sorted(sv_total, key=lambda x: x[1]["pos"])
 
     # groupe les sv similaire ensemble
     sv_grouped = []
@@ -62,7 +62,7 @@ def group_variants(samples, min_sim=0.5):
             if v2[1]["pos"] > v1[1]["end"]: # v2 et toutes les prochaines sv commence apres la fin de v1 (plus aucune intersection possible)
                 break
 
-            if variant_equal(v1[1], v2[1], min_sim): # add to group, delete from tab, do not increment
+            if variant_equal(v1[1], v2[1], max_dist, min_sim): # add to group, delete from tab, do not increment
                 group.append(v2)
                 del sv_total[j]
             else:
@@ -99,7 +99,7 @@ def pairwise_similarity(sample_ids, grouped_sv):
     Return:
         np.array : matrice carré de la taille de <sample_ids> avec la proportion de variation partagé par pair d'échantillons
     """
-    sims = np.array(len(sample_ids), len(sample_ids))
+    sims = np.zeros(shape=(len(sample_ids), len(sample_ids)), dtype=np.float64)
     for i in range(len(sample_ids)):
         from_sample_i = [g for g in grouped_sv if contain_from_sample(i, g)]
         sims[i][i] = 1
@@ -110,31 +110,32 @@ def pairwise_similarity(sample_ids, grouped_sv):
     return sims
 
 
-def variant_heatmap(sample_ids, grouped_sv, sample_labels, file=None):
+def variant_heatmap(pairwise_sim, sample_labels, file=None):
     """ Construit une heatmap à partir d'une matrice de similarité entre échantillons
 
     Args:
-        sample_ids (list): id des échantillons représentés dans <grouped_sv>
-        grouped_sv (list): liste de groupes de variations, chaque groupe est une liste de tuples (sample id, variation)
+        pairwise_sim (np.array): matrice carré de similarité entre les échantillons
         sample_lables (list): liste de labels correspondant aux échantillons de <sample_ids>
         file (str): path du fichier ou sauvegarder la figure, si None, affiche la figure directement avec pyplot
 
     Return:
         None : sauvegarde la heatmap dans file ou l'affiche directement
     """
-    sims = pairwise_similarity(sample_ids, grouped_sv)
     fig, ax = plt.subplots()
-    im = ax.imshow(sims)
+    im = ax.imshow(pairwise_sim)
 
     ax.set_xticks(range(len(sample_labels)), labels=sample_labels, rotation=45, ha="right", rotation_mode="anchor")
     ax.set_yticks(range(len(sample_labels)), labels=sample_labels)
 
+    cbar = ax.figure.colorbar(im, ax=ax)
+    cbar.ax.set_ylabel("", rotation=-90, va="bottom")
+
     # Loop over data dimensions and create text annotations.
     for i in range(len(sample_labels)):
         for j in range(len(sample_labels)):
-            text = ax.text(j, i, harvest[i, j],ha="center", va="center", color="w")
+            text = ax.text(j, i, round(pairwise_sim[i, j], 2), ha="center", va="center", color="w")
     
-    ax.set_title("Harvest of local farmers (in tons/year)")
+    ax.set_title("Pairwise similarity between samples")
     fig.tight_layout()
     if file:
         plt.savefig(file)
