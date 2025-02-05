@@ -92,7 +92,7 @@ def list_pos_in_interval_with_dico (list_vcf, list_intervals):
         for line_interval in list_intervals:
             #on doit considerer qui peut avoir plusieur intervales pour un même ORF
             for interval in  line_interval['location'] :
-                if (line_vcf['pos']>=int(interval[0]) and line_vcf['pos']<=int(interval[1])):
+                if ((line_vcf['pos']>=int(interval[0]) and line_vcf['pos']<=int(interval[1])) or(line_vcf['end']>=int(interval[0]) and line_vcf['end']<=int(interval[1]))): #chancher le if pour que on considere toute la longueur de la mutation , im peut avoir des indel qui sont dans plusieur ORF
                     list_pos_in_interval.append([line_vcf,line_interval])
     return list_pos_in_interval
 
@@ -105,16 +105,35 @@ def extract_info ():
     list_filter = []
     for line in list_all:
         # on extrait la position de la mutation : line[0]['pos']
+        #on extrait la postition de fin de mutation : line[0]['end']
         # on extrait le type de la mutation : line[0]['svtype']
         # on extrait la longueur de la mutation : line[0]['svlen']
         # on extrait le nom de l'ORF : line[1]['locus_tag']
         # on extrait la ou les intervales de l'ORF : line[1]['location']
-        list_filter.append([ line[0]['pos'],line[0]['svtype'],line[0]['svlen'],line[1]['locus_tag'],line[1]['location']])
+        list_filter.append([ line[0]['pos'],line[0]['end'],line[0]['svtype'],line[0]['svlen'],line[1]['locus_tag'],line[1]['location']])
     return list_filter
 
-print(extract_info())
+#print(extract_info())
 
 
+# fonction qui extrait les informations essentielle pour pouvoir faire une representation graphique
+def extract_info2 ():
+    list_all = list_pos_in_interval_with_dico(list_vcf_with_dico(seuil_de_AF),list_interval_with_dico())
+    list_filter = []
+    for line in list_all:
+        # on extrait la position de la mutation : line[0]['pos']
+        #on extrait la postition de fin de mutation : line[0]['end']
+        # on extrait le type de la mutation : line[0]['svtype']
+        # on extrait la longueur de la mutation : line[0]['svlen']
+        # on extrait le nom de l'ORF : line[1]['locus_tag']
+        # on extrait la ou les intervales de l'ORF : line[1]['location']
+        list_filter.append([ line[0]['pos'],line[0]['svtype'],line[0]['svlen'],line[1]['location']])
+    return list_filter
+
+print(extract_info2())
+
+with open("extract.txt", "w", encoding="utf-8") as fichier:
+    fichier.write(str(extract_info2()))
 
 #representation graphique
 #initialisation du graph
@@ -124,7 +143,7 @@ plt.figure(figsize=(40, 6))
 list_for_graph = extract_info()
 
 
-for idx, (pos, mut_type, length, name_mut , orf_interval) in enumerate(list_for_graph):
+for idx, (pos,end, mut_type, length, name_mut , orf_interval) in enumerate(list_for_graph):
     # Tracer l'ORF (ligne horizontale) pour chaque position il peut avoir 1 ou plusieur ORF
     for ORF in orf_interval:
         plt.hlines(y=idx, xmin=int(ORF[0]), xmax=int(ORF[1]), colors='blue', label='ORF' if idx == 0 else "")
@@ -132,6 +151,8 @@ for idx, (pos, mut_type, length, name_mut , orf_interval) in enumerate(list_for_
     # Tracer le point de début de la mutation
     color = 'green' if mut_type == "INS" else 'red'
     plt.scatter(pos, idx, color=color, label=f'Début {mut_type}' if idx == 0 else "")
+    plt.scatter(end, idx, color=color, label=f'Fin {mut_type}' if idx == 0 else "")
+
 
     #ecrire la longueur de la mutation
     plt.annotate(f"{mut_type} {length} {name_mut}", (pos, idx), textcoords="offset points", xytext=(0, 5), ha='center')
