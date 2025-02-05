@@ -1,5 +1,6 @@
 from collections import defaultdict
 import matplotlib.pyplot as plt
+import numpy as np
 
 ## Collect data ##
 
@@ -60,6 +61,36 @@ def plot_count_by_type(counts, file=None):
         plt.savefig(file)
     else:
         plt.show()
+
+
+def plot_grouped_count_by_type(grouped_counts, labels, file=None):
+    """ Construit un barplot du nombre de variants par type, chaque bar est segmenté (chaud / froid par exemple)
+
+    Args: 
+        grouped_counts (dict): dictionaire avec les groupes pour clés et une liste de nombre d'occurence pour valeur
+        labels (list): labels correspondants aux listes d'occurences
+        file (str): path du fichier ou sauvegarder le plot, l'affiche si None
+
+    Return:
+        None : sauvegarde le plot dans <file> ou l'affiche
+    """
+    fig, ax = plt.subplots()
+    bottom = np.zeros(len(labels))
+
+    for group, group_count in grouped_counts.items():
+        p = ax.bar(labels, group_count, label=group, bottom=bottom)
+        bottom += group_count
+        ax.bar_label(p, label_type='center')
+
+    ax.set_ylabel('Nombre de variants')
+    ax.set_title('Nombre de variants par type')
+    ax.legend()
+
+    if file:
+        plt.savefig(file)
+    else:
+        plt.show()
+
 
 def plot_len_by_type(lengths, showfliers, file=None):
     """ Construit un des boxplots avec les distributions de tailles par type
