@@ -130,10 +130,21 @@ def extract_info2 ():
         list_filter.append([ line[0]['pos'],line[0]['svtype'],line[0]['svlen'],line[1]['location']])
     return list_filter
 
-print(extract_info2())
+#print(extract_info2())
+
+def clean_extract ():
+    doc = ""
+    list = extract_info2()
+    for line in list :
+        for info in line :
+            doc+=str(info)+" "
+        doc+= "\n"
+    return doc
+
+print(clean_extract())
 
 with open("extract.txt", "w", encoding="utf-8") as fichier:
-    fichier.write(str(extract_info2()))
+    fichier.write(str(clean_extract()))
 
 #representation graphique
 #initialisation du graph
