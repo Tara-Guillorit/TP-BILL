@@ -101,7 +101,39 @@ DV = mutation presente dans
 DR = mutation pas presente dans 
 AF = frequence allelique 
 
+05/02/2025
 
+on a fait des vcf pour les snp et les sv (a partir de 50 nucleotides)
+Nous on doit faire l'analise terciaire
+
+pourquoi on a fait le choix des outils qui on été utilisé? 
+faut avoir l'esprit critique sur les résultats, qui dependent de l'outil, 
+faut toujours utiliser le meme outils pour l'ens des echantillons
+
+SAM (Sequence Alingnement Multiple) :
+sortie de l'outil d'alignement, compreser en BAM (Binary)
+peut repondre à beaucoup de questions sur l'alignement
+
+IGV (Interactive Genomics Viewer) : 
+Interface graph qui permetent de visualiser toute les donné d'un BAM , d'un VCF, d'un bedgraph,des .stats; ...
+sous forme graph et sous forme exel 
+
+bedgraph : fichier qui permet de voir couverture des l'ens des seq sur le genome
+.stats : info de comment les reads sont mappé sur la reférence 
+
+Pour un VCF on a du rouge quand on a une AF de 1 (homozygote) et bleu quand >1 (heterogygote) avec seuil de 0.1
+
+
+Biais:
+-Dans methodes d'analyses (variant-calling) :
+des FA de 0.5 ou moins peuvent ne pas etre detecter 
+des faux positif peuvent exister
+
+-Profondeur : 
+les efective read depth peuvent etre diff des la profondeur réelle, et donc meme avec des bonne profondeur on peut avoir des valeur biaisé
+
+
+    
 
 
 
