@@ -4,32 +4,32 @@ import numpy as np
 
 ## Collect data ##
 
-def count_by_type(variations):
+def count_types(types):
     """ Compte le nombre de variant structurel par type
 
     Args:
-        variations (list): liste des variations, chacune sous forme de dictionnaire
+        types (list): liste des types de chaque variation
     
     Return:
         dict: dictionaire avec les type pour clés et leur nombre d'occurences pour valeur
     """
     types_count = defaultdict(int)
-    for v in variations:
-        types_count[v["svtype"]] += 1
+    for t in types:
+        types_count[t] += 1
     return types_count
 
-def len_by_type(variations):
+def len_by_type(lengths):
     """ Récupère la distribution de longueur (en valeur absolue) des variants par type 
 
     Args: 
-        variations (list): liste des variations, chacune sous forme de dictionnaire
+        lengths (list): liste de tuple sous la forme (type de variation, longueur)
     
     Return:
         dict: dictionaire avec les type pour clés et les distributions de taille pour valeur 
     """
     types_lengths = defaultdict(list)
-    for v in variations:
-        types_lengths[v["svtype"]].append(abs(v["svlen"]))
+    for t, l in lengths:
+        types_lengths[t].append(abs(l))
     return types_lengths
 
 
@@ -68,7 +68,7 @@ def plot_grouped_count_by_type(grouped_counts, labels, file=None):
 
     Args: 
         grouped_counts (dict): dictionaire avec les groupes pour clés et une liste de nombre d'occurence pour valeur
-        labels (list): labels correspondants aux listes d'occurences
+        labels (list): liste de labels correspondants à chaque indice des listes d'occurences
         file (str): path du fichier ou sauvegarder le plot, l'affiche si None
 
     Return:

@@ -1,44 +1,66 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def variant_equal(v1, v2, dist_thresold=0, sim_thresold=0.5):
-    """ Détermine si la proportion de sites commun entre v1 et v2
-    est superieur à <similarity> (basé sur la plus courte séquence)
+
+def seq_identity(s1, s2):
+    identity = 0
+    for i in range(len(s1)):
+        if s1[i] == s2[i]:
+            identity += 1
+    return identity / len(s1)
+
+
+def variant_equal(v1, v2, sim_thresold=1):
+    """ Détermine si deux variants sont identique à une proportion superieur ou égale à <sim_thresold>.
+    Prend en compte le produit de :
+        (i) la proportion de base partagé (même position) entre v1 et v2,
+        (ii) le pourcentage d'identidé entre les bases partagés
 
     Args:
-        v1, v2 (dict): dictionnaire avec au minimum les clés "start", "end" et "svtype"
-        dist_thresold (int): distance maximale pour considérer que deux insertions ont altérés le même endroit du génome
-        sim_thresold (float): proportion de similarité entre 0 et 1
+        v1, v2 (dict): dictionnaire avec au minimum les clés "pos", "svlen", "svtype" et "alt" pour les inversions
+        sim_thresold (float): proportion de similarité minimum entre v1 et v2
     
     Return:
-        boolean : vrai si l'overlap est significatif et les types sont les mêmes, faux sinon
-    
+        boolean : vrai si la similarité est superieur ou égale à <sim_thresold>, faux sinon
     """
     if v1["svtype"] != v2["svtype"]:
         return False
 
+    full_length = max(v1["pos"] + abs(v1["svlen"]), v2["pos"] + abs(v2["svlen"])) - min(v1["pos"], v2["pos"])
+    common_length = min(v1["pos"] + abs(v1["svlen"]), v2["pos"] + abs(v2["svlen"])) - max(v1["pos"], v2["pos"])
+    common_length = max(common_length, 0)
+    shared = common_length / full_length if full_length > 0 else 0
 
-    if v1["svtype"] == "INS":
-        return abs(v1["pos"] - v2["pos"]) <= dist_thresold
-    else:
-        overlap_start = max(v1["pos"], v2["pos"])
-        overlap_end = min(v1["end"], v2["end"])
-        overlap_len = max(overlap_end - overlap_start, 0)
+    # Check if variation is an inversion and if sequence are actually given (not "<INS>" instead)
+    if v1["svtype"] == "INS" and shared > 0 and v1["alt"] != "<INS>" and v2["alt"] != "<INS>":
+        # Gather the shared part of each sequence
+        first = v1 if v1["pos"] < v2["pos"] else v2
+        second = v1 if v1["pos"] >= v2["pos"] else v2
 
-        shortest_v = min(abs(v1["svlen"]), abs(v2["svlen"]))
-        return overlap_len >= sim_thresold * shortest_v and v1["svtype"] == v2["svtype"]
+        common_start = second["pos"] - first["pos"]
+        seq1 = first["alt"][common_start:]
+        seq2 = second["alt"]
+
+        common_stop = min(len(seq1), len(seq2))
+        seq1 = seq1[:common_stop]
+        seq2 = seq2[:common_stop]
+
+        # Compute sequence identity
+        shared *= seq_identity(seq1, seq2)
+
+    return shared >= sim_thresold
 
 
-def group_variants(samples, max_dist=0, min_sim=0.5):
+def merge_samples(samples, sim_thresold=1):
     """ Groupe les variants similaires ensemble
 
     Args:
         samples (list): une liste contenant, pour chaque échantillon (p90-1, p90-2, ...) une liste de variants
-        min_sim (float): similarité minimum pour décider de grouper deux variants
+        sim_thresold (float): proportion de similarité minimum pour grouper deux variants
 
     Return:
         list : la liste des groupes des variants, chaque groupe représenté par une liste de tuple sous la forme (échantillon d'origine, variant)
-
+        exemple => [ [(sample_0, {variant ...}), (sample_3, {variant ...})], [(sample_x, {var ...})], ...]
     """
     # merge toute les sv dans une liste de tuples (échantillon d'origin, variant)
     sv_total = [(s, v) for s in range(len(samples)) for v in samples[s]]
@@ -46,7 +68,7 @@ def group_variants(samples, max_dist=0, min_sim=0.5):
     sv_total = sorted(sv_total, key=lambda x: x[1]["pos"])
 
     # groupe les sv similaire ensemble
-    sv_grouped = []
+    sv_merged = []
     while len(sv_total) > 0: # tant qu'il reste des éléments à grouper
         v1 = sv_total[0]
         del sv_total[0]
@@ -62,15 +84,15 @@ def group_variants(samples, max_dist=0, min_sim=0.5):
             if v2[1]["pos"] > v1[1]["end"]: # v2 et toutes les prochaines sv commence apres la fin de v1 (plus aucune intersection possible)
                 break
 
-            if variant_equal(v1[1], v2[1], max_dist, min_sim): # add to group, delete from tab, do not increment
+            if variant_equal(v1[1], v2[1], sim_thresold): # add to group, delete from tab, do not increment
                 group.append(v2)
                 del sv_total[j]
             else:
                 j += 1
 
-        sv_grouped.append(group)
+        sv_merged.append(group)
 
-    return sv_grouped
+    return sv_merged
 
 
 def contain_from_sample(sample_id, group):
@@ -102,7 +124,7 @@ def pairwise_similarity(sample_ids, grouped_sv):
     sims = np.zeros(shape=(len(sample_ids), len(sample_ids)), dtype=np.float64)
     for i in range(len(sample_ids)):
         from_sample_i = [g for g in grouped_sv if contain_from_sample(i, g)]
-        sims[i][i] = 1
+        sims[i][i] = 0
         for j in range(0, i):
             from_sample_ij = [g for g in from_sample_i if contain_from_sample(j, g)]
             sims[i][j] = len(from_sample_ij) / len(from_sample_i)
