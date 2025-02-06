@@ -98,6 +98,22 @@ def list_pos_in_interval_with_dico (list_vcf, list_intervals):
 
 #print(list_pos_in_interval_with_dico(list_vcf_with_dico(seuil_de_AF),list_interval_with_dico()))
 
+#dans cette fonction on retourne que une liste de dico, et ke dico aura les info suivantes:
+#list_pos_in_interval2 = [ { 'pos': , 'id': , 'svtype': , 'svlen': , 'end': , 'af': , 'locus_tag': , 'location' : [[start, end],[start,end]] }]
+def list_pos_in_interval_with_dico_2 (list_vcf, list_intervals):
+    list_pos_in_interval2 = []
+    for line_vcf in list_vcf:
+        for line_interval in list_intervals:
+            #on doit considerer qui peut avoir plusieur intervales pour un même ORF
+            for interval in  line_interval['location'] :
+                if ((line_vcf['pos']>=int(interval[0]) and line_vcf['pos']<=int(interval[1])) or(line_vcf['end']>=int(interval[0]) and line_vcf['end']<=int(interval[1]))): #chancher le if pour que on considere toute la longueur de la mutation , im peut avoir des indel qui sont dans plusieur ORF
+                    line_vcf['locus_tag'] = line_interval['locus_tag']
+                    line_vcf['location'] = line_interval['location']
+                    list_pos_in_interval2.append(line_vcf)
+    return list_pos_in_interval2
+
+print(list_pos_in_interval_with_dico_2(list_vcf_with_dico(seuil_de_AF),list_interval_with_dico()))
+
 
 # fonction qui extrait les informations essentielle pour pouvoir faire une representation graphique
 def extract_info ():
@@ -141,8 +157,9 @@ def clean_extract ():
         doc+= "\n"
     return doc
 
-print(clean_extract())
+#print(clean_extract())
 
+#creation d'un doc text avec les info de clean extract
 with open("extract.txt", "w", encoding="utf-8") as fichier:
     fichier.write(str(clean_extract()))
 
