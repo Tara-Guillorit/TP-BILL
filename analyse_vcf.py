@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt #pour faire representation graphique
 import sys #pour pouvoir metre des parametre lors de l'execution de la fontion
 
 from read_vcf import parse_vcf #on importe la fontion pour cree la liste de dico
-
+from read_ORF import list_interval_with_dico
 
 
 
@@ -36,50 +36,6 @@ def list_vcf_with_dico (seuil):
 #print (list_vcf_with_dico(seuil_de_AF))
 
 
-#on va extraire les position de debut et de fin de ORFS pour pouvoir verifier si nos mutations sont incluse dans ces ORF
-#on adapte ce code pour utiliser des listes de dico aussi qui contien les valeur:
-# { 'locus_tag': , 'protein_id' : , 'location' : [[start, end],[start,end]] , 'direct' : True or False , 'complement' : True or False , 'join' : True or False }
-def list_interval_with_dico ():
-    list_ORF = []
-    for ORF in SeqIO.parse("ORF.fasta", "fasta"):
-        header = ORF.description
-        #exemple d'un header :
-        # header = lcl|NC_009127.1_cds_YP_001096040.1_1 [locus_tag=CyHV3_ORF1_1] [db_xref=GeneID:11266495] [protein=protein ORF1] [protein_id=YP_001096040.1] [location=426..1199] [gbkey=CDS]
-
-        dico = {}
-        locus_tag = header.split("[")[1][:-2].split("=")[1]
-
-        protein_id = header.split("[")[4][:-2].split("=")[1]
-
-        location = header.split("[")[5][:-2].split("(")[-1].split("=")[-1].split(")")[0].split(",") #je decide de conserver les diferents intervales pour les join
-        #que peut contenir un seul ORF (ex: location = ['55128..56513', '83162..83365', '83445..84221'])
-        location_list = [] #contiendra une liste de 1 ou plusieurs intevales (ex [['264821', '265162']] ou [['265486', '265825'], ['265938', '270469']])
-        for intervales in location:
-            location_list.append(intervales.split(".."))
-
-        #si la partie [location = ...] du header contien le mot "complement" alors direct = False sinon True
-        #si la partie [location = ...] du header contien le mot "complement" alors complement = True sinon False
-        if 'complement' in header.split("[")[5]:
-            direct = False
-            complement = True
-        else :
-            direct = True
-            complement = False
-
-        # si la partie [location = ...] du header contien le mot "join" alors join = True sinon False
-        if 'join' in header.split("[")[5]:
-            join = True
-        else:
-            join = False
-
-        #on ajoute tout ca a au dico qui sera ensuite ajouter a la liste
-        dico.update({'locus_tag':locus_tag , 'protein_id':protein_id , 'location':location_list, 'direct':direct, 'complement':complement,'join':join})
-        list_ORF.append(dico)
-
-
-    return list_ORF
-
-#print(list_interval_with_dico())
 
 
 #on verifie si non mutation sont dans un ORF avec un double boucle for et retourne une liste des dico vfc et ORF (mis dans une liste) qui respecte cette condition
@@ -112,7 +68,7 @@ def list_pos_in_interval_with_dico_2 (list_vcf, list_intervals):
                     list_pos_in_interval2.append(line_vcf)
     return list_pos_in_interval2
 
-print(list_pos_in_interval_with_dico_2(list_vcf_with_dico(seuil_de_AF),list_interval_with_dico()))
+#print(list_pos_in_interval_with_dico_2(list_vcf_with_dico(seuil_de_AF),list_interval_with_dico()))
 
 
 # fonction qui extrait les informations essentielle pour pouvoir faire une representation graphique
@@ -188,7 +144,7 @@ for idx, (pos,end, mut_type, length, name_mut , orf_interval) in enumerate(list_
 # Ajouter des labels et une légende
 plt.xlabel("Position sur le génome")
 plt.ylabel("Index des ORF/mutations")
-plt.title("Représentation des ORF et des mutations")
+plt.title("Représentation des ORF et des mutations filtré selon le AF de : "+seuil_de_AF)
 plt.legend()
 
 # Afficher le graphique
