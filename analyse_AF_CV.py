@@ -39,11 +39,19 @@ def list_vcf_with_dico (seuil_AF, seuil_cv):
             list_vfc_with_seuil.append(ligne)
     return list_vfc_with_seuil
 
+list =list_vcf_with_dico(seuil_de_AF,seuil_de_cv)
+for dico in list :
+    print (dico)
+
+
 #print (list_vcf_with_dico(seuil_de_AF, seuil_de_cv))
 
 list_ORF = list_interval_with_dico()
 
+for line in list_ORF:
+    print(line)
 
+#print (list_ORF)
 #on verifie si non mutation sont dans un ORF avec un double boucle for et retourne une liste des dico vfc et ORF (mis dans une liste) qui respecte cette condition
 #dans cette fonction on retourne que une liste de dico, et ke dico aura les info suivantes:
 #list_pos_in_interval2 = [ { 'pos': , 'id': , 'svtype': , 'svlen': , 'end': , 'af': , 'locus_tag': , 'location' : [[start, end],[start,end]] }]
@@ -62,17 +70,19 @@ def list_pos_in_interval_with_dico_2 (list_vcf, list_intervals):
 def list_pos_in_interval_with_dico_3 (list_vcf, list_intervals):
     list_pos_in_interval3 = []
     for line_vcf in list_vcf:
+        #print (line_vcf)
         for line_interval in list_intervals:
             #on doit considerer qui peut avoir plusieur intervales pour un même ORF
-            for interval in  line_interval['location'] :
-                #if (line_vcf['svtype']=='INS'):
-                #    if ((line_vcf['pos']>=int(interval[0]) and line_vcf['pos']<=int(interval[1])) or(line_vcf['end']>=int(interval[0]) and line_vcf['end']<=int(interval[1]))): #chancher le if pour que on considere toute la longueur de la mutation , im peut avoir des indel qui sont dans plusieur ORF
-                #        line_vcf['locus_tag'] = line_interval['locus_tag']
-                #        line_vcf['location'] = line_interval['location']
-                #        list_pos_in_interval3.append(line_vcf)
-                #else :
-                    if ((int(interval[0])>=line_vcf['pos'] and int(interval[0])<=line_vcf['end'])) :
-                        #(int(interval[1])<=(line_vcf['pos']) and int(interval[1])>=line_vcf['end'])): #chancher le if pour que on considere toute la longueur de la mutation , im peut avoir des indel qui sont dans plusieur ORF
+            #for interval in  line_interval['location'] :
+            if (line_vcf['svtype']=='INS'):
+                if int(line_interval['location'][0][0]) <= line_vcf['pos'] <= int(line_interval['location'][-1][-1]): #chancher le if pour que on considere toute la longueur de la mutation , im peut avoir des indel qui sont dans plusieur ORF
+                    line_vcf['locus_tag'] = line_interval['locus_tag']
+                    line_vcf['location'] = line_interval['location']
+                    list_pos_in_interval3.append(line_vcf)
+            else :
+                if (int(line_interval['location'][0][0]) <= line_vcf['pos'] <= int(line_interval['location'][-1][-1])) or(int(line_interval['location'][0][0]) <= line_vcf['end'] <= int(line_interval['location'][-1][-1])) or(int(line_interval['location'][0][0]) >= line_vcf['pos'] and int(line_interval['location'][-1][-1]) <= line_vcf['end']):
+                    #(int(interval[1])<=(line_vcf['pos']) and int(interval[1])>=line_vcf['end'])): #chancher le if pour que on considere toute la longueur de la mutation , im peut avoir des indel qui sont dans plusieur ORF
+                    if 'locus-tag' not in line_vcf:
                         line_vcf['locus_tag'] = line_interval['locus_tag']
                         line_vcf['location'] = line_interval['location']
                         list_pos_in_interval3.append(line_vcf)
@@ -84,7 +94,7 @@ def list_pos_in_interval_with_dico_4 (list_vcf, list_intervals):
         for line_interval in list_intervals:
             #on doit considerer qui peut avoir plusieur intervales pour un même ORF
             #if (line_interval['locus_tag']=='CyHV3_ORF27') :
-            #    print (line_interval)
+            #print (line_interval)
             for interval in  line_interval['location'] :
 
                 if min(int(interval[1]), line_vcf['end'])-max(int(interval[0]), line_vcf['pos'])>=0: #chancher le if pour que on considere toute la longueur de la mutation , im peut avoir des indel qui sont dans plusieur ORF
@@ -95,7 +105,7 @@ def list_pos_in_interval_with_dico_4 (list_vcf, list_intervals):
 
     return list_pos_in_interval4
 
-#print(list_pos_in_interval_with_dico_2(list_vcf_with_dico(seuil_de_AF),list_ORF))
+list_pos_in_interval_with_dico_3(list_vcf_with_dico(seuil_de_AF,seuil_de_cv), list_ORF)
 
 #for line in list_ORF:
 #    if (line['locus_tag'] == 'CyHV3_ORF27'):
@@ -108,7 +118,7 @@ def list_pos_in_interval_with_dico_4 (list_vcf, list_intervals):
 
 # fonction qui extrait les informations essentielle pour pouvoir faire une representation graphique
 def extract_info ():
-    list_all = list_pos_in_interval_with_dico_2(list_vcf_with_dico(seuil_de_AF, seuil_de_cv),list_interval_with_dico())
+    list_all = list_pos_in_interval_with_dico_3(list_vcf_with_dico(seuil_de_AF, seuil_de_cv),list_interval_with_dico())
     list_filter = []
     for line in list_all:
         # on extrait la position de la mutation : line['pos']
@@ -120,17 +130,13 @@ def extract_info ():
         list_filter.append([ line['pos'],line['end'],line['svtype'],line['svlen'],line['locus_tag'],line['location']])
     return list_filter
 
-info = extract_info()
-for line in info :
-    print (line)
+#info = extract_info()
+#for line in info :
+#    print (line)
 
 
 
 
-
-#creation d'un doc text avec les info de clean extract
-with open("extract.txt", "w", encoding="utf-8") as fichier:
-    fichier.write(str(extract_info()))
 
 #representation graphique
 #initialisation du graph

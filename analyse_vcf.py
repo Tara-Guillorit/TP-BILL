@@ -36,7 +36,7 @@ def list_vcf_with_dico (seuil):
 #print (list_vcf_with_dico(seuil_de_AF))
 
 
-
+list_ORF = list_interval_with_dico()
 
 #on verifie si non mutation sont dans un ORF avec un double boucle for et retourne une liste des dico vfc et ORF (mis dans une liste) qui respecte cette condition
 #ex list_pos_in_interval = [[{dico_vcf},{dico_ORF}],[{dico_vcf},{dico_ORF}],[{dico_vcf},{dico_ORF}],[{dico_vcf},{dico_ORF}],....]
@@ -72,7 +72,7 @@ def list_pos_in_interval_with_dico_2 (list_vcf, list_intervals):
 
 
 # fonction qui extrait les informations essentielle pour pouvoir faire une representation graphique
-def extract_info ():
+def extract_info_AF ():
     list_all = list_pos_in_interval_with_dico(list_vcf_with_dico(seuil_de_AF),list_interval_with_dico())
     list_filter = []
     for line in list_all:
@@ -85,7 +85,7 @@ def extract_info ():
         list_filter.append([ line[0]['pos'],line[0]['end'],line[0]['svtype'],line[0]['svlen'],line[1]['locus_tag'],line[1]['location']])
     return list_filter
 
-#print(extract_info())
+print(extract_info_AF())
 
 
 # fonction qui extrait les informations essentielle pour pouvoir faire une representation graphique
@@ -115,16 +115,13 @@ def clean_extract ():
 
 #print(clean_extract())
 
-#creation d'un doc text avec les info de clean extract
-with open("extract.txt", "w", encoding="utf-8") as fichier:
-    fichier.write(str(clean_extract()))
 
 #representation graphique
 #initialisation du graph
 plt.figure(figsize=(40, 6))
 
 # Parcourir les données et tracer les ORF et les mutations
-list_for_graph = extract_info()
+list_for_graph = extract_info_AF()
 
 
 for idx, (pos,end, mut_type, length, name_mut , orf_interval) in enumerate(list_for_graph):

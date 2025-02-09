@@ -48,7 +48,7 @@ def list_pos_in_interval_with_dico_2 (list_vcf, list_intervals):
 
 
 # fonction qui extrait les informations essentielle pour pouvoir faire une representation graphique
-def extract_info ():
+def extract_info_cv ():
     list_all = list_pos_in_interval_with_dico_2(list_vcf_with_dico(seuil_de_cv),list_ORF)
     list_filter = []
     for line in list_all:
@@ -68,7 +68,7 @@ def extract_info ():
 plt.figure(figsize=(40, 6))
 
 # Parcourir les données et tracer les ORF et les mutations
-list_for_graph = extract_info()
+list_for_graph = extract_info_cv()
 
 
 for idx, (pos,end, mut_type, length, name_mut , orf_interval) in enumerate(list_for_graph):
