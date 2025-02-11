@@ -11,7 +11,8 @@ def parse_vcf (nom_vcf):
 
         for record in vcf_reader:
             dico = {}
-            dico.update({'pos':record.POS , 'id':record.ID , 'svtype':record.INFO['SVTYPE'], 'svlen':record.INFO['SVLEN'], 'end':record.INFO['END'],'af': record.INFO['AF'], 'depth': record.INFO['COVERAGE']})
+            af = record.INFO['AF'] if 'AF' in record.INFO else 0
+            dico.update({'pos':record.POS , 'id':record.ID , 'svtype':record.INFO['SVTYPE'], 'svlen':record.INFO['SVLEN'], 'end':record.INFO['END'],'af': af, 'depth': record.INFO['COVERAGE']})
             if dico['svtype'] == 'INS':
                 dico['alt'] = record.ALT
     
