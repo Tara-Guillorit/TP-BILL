@@ -51,11 +51,12 @@ def variant_equal(v1, v2, sim_thresold=1):
     return shared >= sim_thresold
 
 
-def merge_samples(samples, sim_thresold=1):
+def merge_samples(samples, samples_labels, sim_thresold=1):
     """ Groupe les variants similaires ensemble
 
     Args:
         samples (list): une liste contenant, pour chaque échantillon (p90-1, p90-2, ...) une liste de variants
+        samples_labels (list): le label correspondant à chaque liste de variants dans <samples>
         sim_thresold (float): proportion de similarité minimum pour grouper deux variants
 
     Return:
@@ -63,7 +64,7 @@ def merge_samples(samples, sim_thresold=1):
         exemple => [ [(sample_0, {variant ...}), (sample_3, {variant ...})], [(sample_x, {var ...})], ...]
     """
     # merge toute les sv dans une liste de tuples (échantillon d'origin, variant)
-    sv_total = [(s, v) for s in range(len(samples)) for v in samples[s]]
+    sv_total = [(samples_labels[i], v) for i in range(len(samples)) for v in samples[i]]
     # tri les sv par position de départ
     sv_total = sorted(sv_total, key=lambda x: x[1]["pos"])
 
@@ -95,39 +96,40 @@ def merge_samples(samples, sim_thresold=1):
     return sv_merged
 
 
-def contain_from_sample(sample_id, group):
+def contain_from_sample(sample_label, group):
     """ Détermine si un groupe de variations contient une variation de l'échantillon <sample_id>
 
     Args:
-        sample_id (int): l'id de l'échantillon dans les groupes
+        sample_label (str): le label de l'échantillon dans les groupes
         group (list): liste de variations sous la forme de tuples (sample_id, variation)
 
     Return:
         boolean : Vrai si le groupe contient une variation de cet échantillon
     """
     for variant in group:
-        if variant[0] == sample_id:
+        if variant[0] == sample_label:
             return True
     return False
 
 
-def pairwise_similarity(sample_ids, grouped_sv):
+def pairwise_similarity(grouped_sv, sample_labels):
     """ Calcule le pourcentage de variations partagé entre les échantillons représentés dans <sample_ids>
 
     Args:
-        sample_ids (list): id des échantillons représentés dans <grouped_sv>
         grouped_sv (list): liste de groupes de variations, chaque groupe est une liste de tuples (sample id, variation)
+        sample_labels (list): labels des échantillons représentés dans <grouped_sv>
 
     Return:
         np.array : matrice carré de la taille de <sample_ids> avec la proportion de variation partagé par pair d'échantillons
     """
-    sims = np.zeros(shape=(len(sample_ids), len(sample_ids)), dtype=np.float64)
-    for i in range(len(sample_ids)):
-        from_sample_i = [g for g in grouped_sv if contain_from_sample(i, g)]
-        sims[i][i] = 1
+    sims = np.zeros(shape=(len(sample_labels), len(sample_labels)), dtype=np.float64)
+    np.fill_diagonal(sims, np.nan)
+    for i in range(len(sample_labels)):
+        #sims[i][i] = 1
         for j in range(0, i):
-            from_sample_ij = [g for g in from_sample_i if contain_from_sample(j, g)]
-            sims[i][j] = len(from_sample_ij) / len(from_sample_i)
+            from_i_or_j = [g for g in grouped_sv if contain_from_sample(sample_labels[i], g) or contain_from_sample(sample_labels[j], g)]
+            from_i_and_j = [g for g in grouped_sv if contain_from_sample(sample_labels[i], g) and contain_from_sample(sample_labels[j], g)]
+            sims[i][j] = len(from_i_and_j) / len(from_i_or_j) if len(from_i_or_j) > 0 else 0
             sims[j][i] = sims[i][j]
     return sims
 
