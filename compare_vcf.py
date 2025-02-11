@@ -124,7 +124,7 @@ def pairwise_similarity(sample_ids, grouped_sv):
     sims = np.zeros(shape=(len(sample_ids), len(sample_ids)), dtype=np.float64)
     for i in range(len(sample_ids)):
         from_sample_i = [g for g in grouped_sv if contain_from_sample(i, g)]
-        sims[i][i] = 0
+        sims[i][i] = 1
         for j in range(0, i):
             from_sample_ij = [g for g in from_sample_i if contain_from_sample(j, g)]
             sims[i][j] = len(from_sample_ij) / len(from_sample_i)
