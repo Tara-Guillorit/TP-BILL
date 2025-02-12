@@ -98,6 +98,8 @@ if __name__ == "__main__":
     fig, ax = plt.subplots()
     plot_lines(variant_freqs, args.iterations, colors, ax, False)
     #plt.show()
+    ax.set_xlabel("Passages de l'expérience")
+    ax.set_ylabel("Fréquence allélique de la mutation")
 
     figs_dir = args.output / "figs"
     figs_dir.mkdir()

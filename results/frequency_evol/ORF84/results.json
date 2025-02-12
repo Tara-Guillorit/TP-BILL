@@ -1,0 +1,190 @@
+{
+    "variants": {
+        "1": {
+            "occurences": [
+                "Sniffles2.DEL.5D0S0",
+                "Sniffles2.DEL.30CS0",
+                null,
+                "Sniffles2.DEL.2E7S0",
+                null
+            ],
+            "frequencies": [
+                0.585,
+                0.857,
+                0,
+                0.855,
+                0
+            ]
+        },
+        "2": {
+            "occurences": [
+                null,
+                null,
+                null,
+                null,
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "3": {
+            "occurences": [
+                "Sniffles2.DEL.3FES0",
+                "Sniffles2.DEL.143S0",
+                null,
+                null,
+                null
+            ],
+            "frequencies": [
+                0.328,
+                1.0,
+                0,
+                0,
+                0
+            ]
+        },
+        "4": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.22AS0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0.775,
+                0
+            ]
+        },
+        "5": {
+            "occurences": [
+                null,
+                null,
+                "Sniffles2.DEL.54AS0",
+                null,
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0.257,
+                0,
+                0
+            ]
+        },
+        "6": {
+            "occurences": [
+                null,
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.32ES0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0,
+                0.995
+            ]
+        },
+        "7": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.2A3S0",
+                "Sniffles2.DEL.35ES0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0.241,
+                0.932
+            ]
+        },
+        "8": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.20BS0",
+                "Sniffles2.DEL.353S0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0.836,
+                1.0
+            ]
+        },
+        "9": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.29ES0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0.835,
+                0
+            ]
+        },
+        "10": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.24DS0",
+                "Sniffles2.DEL.383S0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0.352,
+                1.0
+            ]
+        }
+    },
+    "searched": {
+        "pos": 155446,
+        "svlen": -33,
+        "svtype": "DEL",
+        "alt": ""
+    },
+    "iterations": [
+        15,
+        30,
+        50,
+        65,
+        90
+    ],
+    "samples": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+    ],
+    "similarity": 1.0
+}

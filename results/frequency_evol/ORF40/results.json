@@ -1,0 +1,190 @@
+{
+    "variants": {
+        "1": {
+            "occurences": [
+                "Sniffles2.DEL.4AES0",
+                "Sniffles2.DEL.268S0",
+                "Sniffles2.DEL.281S0",
+                "Sniffles2.DEL.209S0",
+                null
+            ],
+            "frequencies": [
+                0.547,
+                0.49,
+                0.882,
+                1.0,
+                0
+            ]
+        },
+        "2": {
+            "occurences": [
+                null,
+                null,
+                null,
+                null,
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "3": {
+            "occurences": [
+                "Sniffles2.DEL.37AS0",
+                "Sniffles2.DEL.114S0",
+                "Sniffles2.DEL.308S0",
+                "Sniffles2.DEL.25ES0",
+                null
+            ],
+            "frequencies": [
+                0.305,
+                0.902,
+                0.802,
+                0.926,
+                0
+            ]
+        },
+        "4": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.147S0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0.944,
+                0
+            ]
+        },
+        "5": {
+            "occurences": [
+                null,
+                null,
+                "Sniffles2.DEL.472S0",
+                "Sniffles2.DEL.157S0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0.378,
+                0.553,
+                0
+            ]
+        },
+        "6": {
+            "occurences": [
+                "Sniffles2.DEL.22DS0",
+                null,
+                null,
+                "Sniffles2.DEL.141S0",
+                "Sniffles2.DEL.29CS0"
+            ],
+            "frequencies": [
+                0.918,
+                0,
+                0,
+                0.474,
+                1.0
+            ]
+        },
+        "7": {
+            "occurences": [
+                null,
+                null,
+                "Sniffles2.DEL.2F8S0",
+                "Sniffles2.DEL.1A7S0",
+                "Sniffles2.DEL.2E3S0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0.343,
+                0.377,
+                1.0
+            ]
+        },
+        "8": {
+            "occurences": [
+                null,
+                null,
+                "Sniffles2.DEL.42AS0",
+                "Sniffles2.DEL.14BS0",
+                "Sniffles2.DEL.329S0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0.296,
+                0.97,
+                1.0
+            ]
+        },
+        "9": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.196S0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                1.0,
+                0
+            ]
+        },
+        "10": {
+            "occurences": [
+                null,
+                null,
+                "Sniffles2.DEL.450S0",
+                "Sniffles2.DEL.171S0",
+                "Sniffles2.DEL.274S0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0.47,
+                0.554,
+                1.0
+            ]
+        }
+    },
+    "searched": {
+        "pos": 60281,
+        "svlen": -25,
+        "svtype": "DEL",
+        "alt": ""
+    },
+    "iterations": [
+        15,
+        30,
+        50,
+        65,
+        90
+    ],
+    "samples": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+    ],
+    "similarity": 1.0
+}

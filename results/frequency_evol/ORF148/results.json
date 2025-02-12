@@ -1,0 +1,190 @@
+{
+    "variants": {
+        "1": {
+            "occurences": [
+                "Sniffles2.DEL.6DCS0",
+                null,
+                null,
+                "Sniffles2.DEL.40DS0",
+                null
+            ],
+            "frequencies": [
+                0.529,
+                0,
+                0,
+                1.0,
+                0
+            ]
+        },
+        "2": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.303S0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                1.0,
+                0
+            ]
+        },
+        "3": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.31ES0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                1.0,
+                0
+            ]
+        },
+        "4": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.2FDS0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                0.971,
+                0
+            ]
+        },
+        "5": {
+            "occurences": [
+                null,
+                null,
+                "Sniffles2.DEL.623S0",
+                "Sniffles2.DEL.2F6S0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0.963,
+                1.0,
+                0
+            ]
+        },
+        "6": {
+            "occurences": [
+                "Sniffles2.DEL.306S0",
+                null,
+                null,
+                "Sniffles2.DEL.2D2S0",
+                "Sniffles2.DEL.3FAS0"
+            ],
+            "frequencies": [
+                1.0,
+                0,
+                0,
+                1.0,
+                1.0
+            ]
+        },
+        "7": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.3BES0",
+                "Sniffles2.DEL.3ECS0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                1.0,
+                1.0
+            ]
+        },
+        "8": {
+            "occurences": [
+                null,
+                null,
+                "Sniffles2.DEL.5FES0",
+                "Sniffles2.DEL.2E2S0",
+                "Sniffles2.DEL.38DS0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                0.971,
+                0.966,
+                1.0
+            ]
+        },
+        "9": {
+            "occurences": [
+                null,
+                null,
+                null,
+                "Sniffles2.DEL.3A3S0",
+                null
+            ],
+            "frequencies": [
+                0,
+                0,
+                0,
+                1.0,
+                0
+            ]
+        },
+        "10": {
+            "occurences": [
+                null,
+                null,
+                "Sniffles2.DEL.53AS0",
+                "Sniffles2.DEL.325S0",
+                "Sniffles2.DEL.4B9S0"
+            ],
+            "frequencies": [
+                0,
+                0,
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    },
+    "searched": {
+        "pos": 254131,
+        "svlen": -18,
+        "svtype": "DEL",
+        "alt": ""
+    },
+    "iterations": [
+        15,
+        30,
+        50,
+        65,
+        90
+    ],
+    "samples": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+    ],
+    "similarity": 1.0
+}
