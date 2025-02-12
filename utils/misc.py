@@ -14,7 +14,7 @@ def build_vcf_path(sample, it):
         15: "P15/KHV-U_trunc/",
         30: "P30/KHV-U_trunc/",
         50: "P50/KHV-U_trunc/",
-        65: "P65_new/vcf", 
+        65: "P65_new/vcf/", 
         90: "P90/vcf/"
     }
 
