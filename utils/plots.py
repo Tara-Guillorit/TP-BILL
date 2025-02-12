@@ -1,39 +1,6 @@
-from collections import defaultdict
 import matplotlib.pyplot as plt
-import numpy as np
+from collections import defaultdict
 
-## Collect data ##
-
-def count_types(types):
-    """ Compte le nombre de variant structurel par type
-
-    Args:
-        types (list): liste des types de chaque variation
-    
-    Return:
-        dict: dictionaire avec les type pour clés et leur nombre d'occurences pour valeur
-    """
-    types_count = defaultdict(int)
-    for t in types:
-        types_count[t] += 1
-    return types_count
-
-def len_by_type(lengths):
-    """ Récupère la distribution de longueur (en valeur absolue) des variants par type 
-
-    Args: 
-        lengths (list): liste de tuple sous la forme (type de variation, longueur)
-    
-    Return:
-        dict: dictionaire avec les type pour clés et les distributions de taille pour valeur 
-    """
-    types_lengths = defaultdict(list)
-    for t, l in lengths:
-        types_lengths[t].append(abs(l))
-    return types_lengths
-
-
-## Plot data ##
 
 def plot_count_by_type(counts, file=None):
     """ Construit un barplot du nombre de variants par type
@@ -67,7 +34,7 @@ def plot_grouped_count_by_type(grouped_counts, labels, file=None):
     """ Construit un barplot du nombre de variants par type, chaque bar est segmenté (chaud / froid par exemple)
 
     Args: 
-        grouped_counts (dict): dictionaire avec les groupes pour clés et une liste de nombre d'occurence pour valeur
+        grouped_counts (dict): dictionaire avec les groupes (pour chaque couleur) pour clés et une liste de nombre (pour chaque barre) d'occurence pour valeur
         labels (list): liste de labels correspondants à chaque indice des listes d'occurences
         file (str): path du fichier ou sauvegarder le plot, l'affiche si None
 
@@ -115,3 +82,58 @@ def plot_len_by_type(lengths, showfliers, file=None):
         plt.savefig(file)
     else:
         plt.show()
+
+
+def variant_heatmap(pairwise_sim, sample_labels, file=None):
+    """ Construit une heatmap à partir d'une matrice de similarité entre échantillons
+
+    Args:
+        pairwise_sim (np.array): matrice carré de similarité entre les échantillons
+        sample_lables (list): liste de labels correspondant aux échantillons de <sample_ids>
+        file (str): path du fichier ou sauvegarder la figure, si None, affiche la figure directement avec pyplot
+
+    Return:
+        None : sauvegarde la heatmap dans file ou l'affiche directement
+    """
+    fig, ax = plt.subplots()
+    im = ax.imshow(pairwise_sim)
+
+    ax.set_xticks(range(len(sample_labels)), labels=sample_labels, rotation=45, ha="right", rotation_mode="anchor")
+    ax.set_yticks(range(len(sample_labels)), labels=sample_labels)
+
+    cbar = ax.figure.colorbar(im, ax=ax)
+    cbar.ax.set_ylabel("", rotation=-90, va="bottom")
+
+    # Loop over data dimensions and create text annotations.
+    for i in range(len(sample_labels)):
+        for j in range(len(sample_labels)):
+            text = ax.text(j, i, round(pairwise_sim[i, j], 2), ha="center", va="center", color="w")
+    
+    ax.set_title("Pairwise similarity between samples")
+    fig.tight_layout()
+    if file:
+        plt.savefig(file)
+    else:
+        plt.show()
+
+
+def plot_lines(Y, x_labels, colors, ax, plot_nulls=False):
+    """ Plot each list in y as a line plot
+    - y is a dict like {sample label (str) : sample frequencies (list), ...}
+    - x_labels is a list of label for each index in the sample frequencies (usually the iterations : P15, ..., P90)
+    - colors is a dict with color scheme as key (str) and 
+    """
+    x = [i + 1 for i in range(len(x_labels))]
+    ax.set_xticks(x, labels=x_labels)
+
+    colors_index = defaultdict(int)
+
+    for sample, y in Y.items():
+        if plot_nulls or (sum(y) > 0):
+            color = None
+            for c, v in colors.items():
+                if sample in v:
+                    color = plt.get_cmap(c)((colors_index[c]/ (len(v)-1)) if len(v) > 1 else 0)
+                    colors_index[c] += 1
+            ax.plot(x, y, color=color, label=sample)
+    ax.legend()

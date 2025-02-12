@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -112,58 +111,15 @@ def contain_from_sample(sample_label, group):
     return False
 
 
-def pairwise_similarity(grouped_sv, sample_labels):
-    """ Calcule le pourcentage de variations partagé entre les échantillons représentés dans <sample_ids>
-
-    Args:
-        grouped_sv (list): liste de groupes de variations, chaque groupe est une liste de tuples (sample id, variation)
-        sample_labels (list): labels des échantillons représentés dans <grouped_sv>
-
-    Return:
-        np.array : matrice carré de la taille de <sample_ids> avec la proportion de variation partagé par pair d'échantillons
+def find_similar_variant(variant_set, v, similarity=1):
+    """ Recherche un variant similaire à v dans variant_set
     """
-    sims = np.zeros(shape=(len(sample_labels), len(sample_labels)), dtype=np.float64)
-    np.fill_diagonal(sims, np.nan)
-    for i in range(len(sample_labels)):
-        #sims[i][i] = 1
-        for j in range(0, i):
-            from_i_or_j = [g for g in grouped_sv if contain_from_sample(sample_labels[i], g) or contain_from_sample(sample_labels[j], g)]
-            from_i_and_j = [g for g in grouped_sv if contain_from_sample(sample_labels[i], g) and contain_from_sample(sample_labels[j], g)]
-            sims[i][j] = len(from_i_and_j) / len(from_i_or_j) if len(from_i_or_j) > 0 else 0
-            sims[j][i] = sims[i][j]
-    return sims
-
-
-def variant_heatmap(pairwise_sim, sample_labels, file=None):
-    """ Construit une heatmap à partir d'une matrice de similarité entre échantillons
-
-    Args:
-        pairwise_sim (np.array): matrice carré de similarité entre les échantillons
-        sample_lables (list): liste de labels correspondant aux échantillons de <sample_ids>
-        file (str): path du fichier ou sauvegarder la figure, si None, affiche la figure directement avec pyplot
-
-    Return:
-        None : sauvegarde la heatmap dans file ou l'affiche directement
-    """
-    fig, ax = plt.subplots()
-    im = ax.imshow(pairwise_sim)
-
-    ax.set_xticks(range(len(sample_labels)), labels=sample_labels, rotation=45, ha="right", rotation_mode="anchor")
-    ax.set_yticks(range(len(sample_labels)), labels=sample_labels)
-
-    cbar = ax.figure.colorbar(im, ax=ax)
-    cbar.ax.set_ylabel("", rotation=-90, va="bottom")
-
-    # Loop over data dimensions and create text annotations.
-    for i in range(len(sample_labels)):
-        for j in range(len(sample_labels)):
-            text = ax.text(j, i, round(pairwise_sim[i, j], 2), ha="center", va="center", color="w")
-    
-    ax.set_title("Pairwise similarity between samples")
-    fig.tight_layout()
-    if file:
-        plt.savefig(file)
-    else:
-        plt.show()
-
-    
+    result = None
+    for i in range(len(variant_set)):
+        if variant_equal(v, variant_set[i], similarity):
+            if result is None:
+                result = variant_set[i]
+            else:
+                print("Attention plus de un résultat similaire trouvé dans le set de variants")
+                
+    return result
