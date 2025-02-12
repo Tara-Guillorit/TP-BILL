@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from collections import defaultdict
+import numpy as np
 
 
 def plot_count_by_type(counts, file=None):

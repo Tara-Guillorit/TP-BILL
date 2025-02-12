@@ -2,6 +2,8 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import numpy as np
 
+from .similarity import contain_from_sample
+
 
 def count_types(types):
     """ Compte le nombre de variant structurel par type

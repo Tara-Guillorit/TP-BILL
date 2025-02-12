@@ -7,18 +7,13 @@ import matplotlib.pyplot as plt
 from utils.plots import plot_lines
 from utils.similarity import find_similar_variant
 from utils.misc import parse_range, build_vcf_path, build_vcf_path_test
-from read_vcf import parse_vcf_noerror
-
-
-def print_dict(d):
-    for k, v in d.items():
-        print(k, v)
+from utils.read_vcf import parse_vcf_noerror
 
 
 def read_by_sample(sample, its):
     result = []
     for i in its:
-        p = build_vcf_path(sample, i)
+        p = build_vcf_path_test(sample, i)
         result.append(parse_vcf_noerror(p))
     return result
 
@@ -97,9 +92,9 @@ if __name__ == "__main__":
 
     fig, ax = plt.subplots()
     plot_lines(variant_freqs, args.iterations, colors, ax, False)
-    #plt.show()
     ax.set_xlabel("Passages de l'expérience")
     ax.set_ylabel("Fréquence allélique de la mutation")
+    #plt.show()
 
     figs_dir = args.output / "figs"
     figs_dir.mkdir()

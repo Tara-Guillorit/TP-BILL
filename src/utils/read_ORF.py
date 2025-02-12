@@ -3,9 +3,9 @@ from Bio import SeqIO #package pour extraire info du FASTA contenant les ORF
 #on va extraire les position de debut et de fin de ORFS pour pouvoir verifier si nos mutations sont incluse dans ces ORF
 #on adapte ce code pour utiliser des listes de dico aussi qui contien les valeur:
 # { 'locus_tag': , 'protein_id' : , 'location' : [[start, end],[start,end]] , 'direct' : True or False , 'complement' : True or False , 'join' : True or False }
-def list_interval_with_dico ():
+def list_interval_with_dico (filename):
     list_ORF = []
-    for ORF in SeqIO.parse("ORF.fasta", "fasta"):
+    for ORF in SeqIO.parse(filename, "fasta"):
         header = ORF.description
         #exemple d'un header :
         # header = lcl|NC_009127.1_cds_YP_001096040.1_1 [locus_tag=CyHV3_ORF1_1] [db_xref=GeneID:11266495] [protein=protein ORF1] [protein_id=YP_001096040.1] [location=426..1199] [gbkey=CDS]
