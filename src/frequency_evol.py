@@ -29,8 +29,8 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--type', type=str, help="Type de la mutation", required=True)
     parser.add_argument('-s', '--similarity', type=float, help="Proportion de similarité requise", required=False, default=1.)
     parser.add_argument('-a', '--alt', type=str, help="Séquence alternative en cas d'insertion", required=False, default="")
-    parser.add_argument('-sa', '--samples', type=str, help="Samples of interest (1 to 10)", required=False, default="1-10")
-    parser.add_argument('-it', '--iterations', type=str, help="Iterations to analyse (1=P15 to 5=P90)", required=False, default="1-5")
+    parser.add_argument('-sa', '--samples', type=str, help="Samples of interest, range (1 to 10 => 1-10)", required=False, default="1-10")
+    parser.add_argument('-it', '--iterations', type=str, help="Iterations to analyse, range (1=P15 to 5=P90 => 1-5)", required=False, default="1-5")
     parser.add_argument('-o', '--output', type=str, help="Directory to write the output", required=True)
     args = parser.parse_args()
 
@@ -45,10 +45,14 @@ if __name__ == "__main__":
         print("ERROR : le dossier output " + str(args.output) + " existe déjà")
         exit(1)
     else:
-        args.output.mkdir()
+        args.output.mkdir(parents=True)
 
     with open(args.output / "input.json", "w") as fp:
         json.dump(args_dict, fp, indent=4) 
+
+    figs_dir = args.output / "figs"
+    figs_dir.mkdir()
+
 
     # list of all variants for each iteration (value), for each sample (key)
     data = {s: read_by_sample(s, args.iterations) for s in args.samples}
@@ -96,6 +100,4 @@ if __name__ == "__main__":
     ax.set_ylabel("Fréquence allélique de la mutation")
     #plt.show()
 
-    figs_dir = args.output / "figs"
-    figs_dir.mkdir()
     plt.savefig(figs_dir / "frequency_evol_by_sample.pdf")

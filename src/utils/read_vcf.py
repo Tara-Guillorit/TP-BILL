@@ -40,7 +40,7 @@ def parse_vcf (nom_vcf):
                 af = record.INFO['AF'] if 'AF' in record.INFO else 0
                 dico.update({'pos':record.POS , 'id':record.ID , 'svtype':record.INFO['SVTYPE'], 'svlen':record.INFO['SVLEN'], 'end':record.INFO['END'],'af': af, 'depth': record.INFO['COVERAGE']})
                 if dico['svtype'] == 'INS':
-                    dico['alt'] = record.ALT
+                    dico['alt'] = str(record.ALT[0])
         
                 list_vcf.append(dico)
             return list_vcf
