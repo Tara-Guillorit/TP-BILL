@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from collections import defaultdict
 import numpy as np
+from pathlib import Path
 
 
 def barplot(counts, ax):
@@ -74,3 +75,88 @@ def plot_lines(Y, x_labels, colors, ax, plot_nulls=False):
                     colors_index[c] += 1
             ax.plot(x, y, color=color, label=sample)
     ax.legend()
+
+
+def distrib_af_depth(af, af_filt, depth, depth_filt, it, sample, figdir):
+    fig, ax1 = plt.subplots()
+    ax1.hist(af, bins=50, label="Non filtré")
+    ax1.hist(af_filt, bins=50, label="Filtré")
+    ax1.set_xlabel('Fréquence allélique (AF)')
+    ax1.set_ylabel('Nombre de variants')
+    if it is not None:
+        ax1.set_title(f"Fréquence alléliques du passage {it}")
+    else:
+        ax1.set_title(f"Fréquence alléliques de l'échantillon {sample}")
+    ax1.legend()
+    plt.savefig(figdir / "af.pdf")
+
+    fig, ax2 = plt.subplots()
+    ax2.hist(depth, bins=50, label="Non filtré")
+    ax2.hist(depth_filt, bins=50, label="Filtré")
+    ax2.set_xlabel('Profondeur de read (DR + DV)')
+    ax2.set_ylabel('Nombre de variants')
+    if it is not None:
+        ax2.set_title(f"Profondeur de read du passage {it}")
+    else:
+        ax2.set_title(f"Profondeur de read de l'échantillon {sample}")
+    ax2.legend()
+    plt.savefig(figdir / "depth.pdf")
+
+    fig, ax3 = plt.subplots()
+    ax3.plot(depth, af, 'o', label="Non filtré")
+    ax3.plot(depth_filt, af_filt, 'o', label="Filtré")
+    ax3.set_yscale('log')
+    ax3.set_xscale('log')
+    ax3.set_xlabel('Profondeur de read (DR + DV)')
+    ax3.set_ylabel('Fréquence allélique (AF)')
+    if it is not None:
+        ax3.set_title(f'Fréquence allélique sur Profondeur read dans le passage {it}')
+    else:
+        ax3.set_title(f'Fréquence allélique sur Profondeur read dans l\'échantillon {sample}')
+    ax3.legend()
+    plt.savefig(figdir / "depth_af.pdf")
+
+
+def len_by_pos(lens, lens_filt, genome_size, steps, max_y, it, sample, figdir):
+    step_size = genome_size / steps
+    x = [(step_size) * i for i in range(0, steps)]
+    y = [[] for i in range(0, steps)]
+    y_fil = [[] for i in range(0, steps)]
+
+    for l in lens:
+        step = int(l[0] / (step_size))
+        y[step].append(l[1])
+    y = [np.mean(y[i]) if len(y[i]) > 0 else 0 for i in range(len(y))]
+
+    for l in lens_filt:
+        step = int(l[0] / (step_size))
+        y_fil[step].append(l[1])
+    y_fil = [np.mean(y_fil[i]) if len(y_fil[i]) > 0 else 0 for i in range(len(y_fil))]
+
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
+
+    ax1.bar(x[0:int(0.2*steps)], y[0:int(0.2*steps)], width=3000, label="Non filtré")
+    ax1.bar(x[0:int(0.2*steps)], y_fil[0:int(0.2*steps)], width=3000, label="Filtré")
+    ax1.set_ylim(ax1.get_ylim()[0], max_y)
+    ax1.set_xlabel(f'Position de début de la mutation')
+    ax1.set_title(f"Début du génome")
+    ax1.legend()
+
+    ax2.bar(x[int(0.8*steps):steps], y[int(0.8*steps):steps], width=3000, label="Non filtré")
+    ax2.bar(x[int(0.8*steps):steps], y_fil[int(0.8*steps):steps], width=3000, label="Filtré")
+    ax2.set_ylim(ax2.get_ylim()[0], max_y)
+    ax2.set_xlabel(f'Position de début de la mutation')
+    ax2.set_title(f"Fin du génome")
+    ax2.legend()
+
+    if it is not None:
+        plt.suptitle(f"Taille moyenne des variants aux bornes du génome dans le passage {it}")
+    else:
+        plt.suptitle(f"Taille moyenne des variants aux bornes du génome dans l'échantillon {sample}")
+
+    plt.tight_layout()
+    plt.savefig(figdir / "len_by_pos.pdf")
+
+    len_by_step = [(x[i], y[i]) for i in range(len(x))]
+    len_by_step_filter = [(x[i], y_fil[i]) for i in range(len(x))]
+    return len_by_step, len_by_step_filter
