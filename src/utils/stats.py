@@ -6,18 +6,39 @@ from .similarity import contain_from_sample
 
 
 def count_types(types):
-    """ Compte le nombre de variant structurel par type
-
-    Args:
-        types (list): liste des types de chaque variation
-    
-    Return:
-        dict: dictionaire avec les type pour clés et leur nombre d'occurences pour valeur
-    """
     types_count = defaultdict(int)
     for t in types:
         types_count[t] += 1
     return types_count
+
+
+def count_types_by_sample(grouped_sv, labels):
+    result = {}
+    for g in grouped_sv:
+        t = g[0][1]['svtype']
+        if t not in result:
+            result[t] = [0] * len(labels)
+        for sv in g:
+            result[t][labels.index(sv[0])] += 1
+    return result
+
+
+def count_types_by_group(grouped_sv, grouped_labels):
+    result = {}
+    for g in grouped_sv:
+        t = g[0][1]['svtype']
+        if t not in result:
+            result[t] = [0] * len(grouped_labels)
+
+        found = [0] * len(grouped_labels)
+        for sv in g:
+            for i in range(len(grouped_labels)):
+                if sv[0] in grouped_labels[i]:
+                    found[i] = 1
+
+        result[t] = [result[t][i] + found[i] for i in range(len(result[t]))]
+
+    return result
 
 
 def len_by_type(lengths):
