@@ -31,8 +31,8 @@ def grouped_barplot(grouped_counts, labels, ax):
 def boxplot(distribs, showfliers, ax):
     """ Affiche un boxplot avec une box pour chaque entré de distribs (dictionnaire {label : distrib})
     """
-    ax.boxplot(list(distribs.values()), tick_labels=list(distribs.keys()), showfliers=showfliers)
-    ax.set_xticks([y + 1 for y in range(len(distribs))])
+    ax.boxplot(list(distribs.values()), showfliers=showfliers)
+    ax.set_xticks([y + 1 for y in range(len(distribs))], labels=list(distribs.keys()))
     ax.yaxis.grid(True)
 
 
