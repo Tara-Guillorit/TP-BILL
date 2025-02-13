@@ -16,12 +16,12 @@ from utils.read_ORF import list_interval_with_dico
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Frequency evolution analyse options")
 
-    # Commande :  python3 sample_stats.py -f 0.1 -d 250 -ec 10000 270000 -lc 2000 -s 1 -sa 10 -it 1-5 -o results/sample_stats/10
+    # Commande :  python3 sample_stats.py -f 0.15 -d 500 -ec 20000 270000 -lc 3000 -s 1 -sa 10 -it 1-5 -o results/sample_stats/10
 
-    parser.add_argument('-f', '--freq', type=float, help="Minimum allele frequency to filter", required=False, default=0.05)
-    parser.add_argument('-d', '--depth', type=int, help="Mininum depth to filter", required=False, default=150)
+    parser.add_argument('-f', '--freq', type=float, help="Minimum allele frequency to filter", required=False, default=0.15)
+    parser.add_argument('-d', '--depth', type=int, help="Mininum depth to filter", required=False, default=500)
     parser.add_argument('-ec', '--edgecut', type=int, nargs='+', help="Bounds to cut huge repetitive insertions", required=False, default=[20000, 270000])
-    parser.add_argument('-lc', '--lencut', type=int, help="Maximum variant lenght outside of the edge cut bounds", required=False, default=2000)
+    parser.add_argument('-lc', '--lencut', type=int, help="Maximum variant lenght outside of the edge cut bounds", required=False, default=3000)
     parser.add_argument('-s', '--similarity', type=float, help="Minimum similarity required to group variants", required=False, default=1.)
     parser.add_argument('-sa', '--sample', type=int, help="Sample of interest, only one (1 to 10)", required=True)
     parser.add_argument('-it', '--iterations', type=str, help="Iterations to analyse, range (1=P15 to 5=P90 => 1-5)", required=False, default="1-5")
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     before_labels = [f"P{i}-{args.sample}" for i in args.iterations if i < 30]
     after_labels = [f"P{i}-{args.sample}" for i in args.iterations if i >= 30]
 
-    data = [parse_vcf_noerror(build_vcf_path(args.sample, i)) for i in args.iterations]
+    data = [parse_vcf_noerror(build_vcf_path_test(args.sample, i)) for i in args.iterations]
     filtered_data = [[v for v in d if v['af'] > args.freq and max(v['depth'])> args.depth] for d in data]
     filtered_data = [[v for v in d if (args.edgecut[0] < v['pos'] and v['pos'] < args.edgecut[1]) or v['svlen'] < args.lencut] for d in filtered_data]
 

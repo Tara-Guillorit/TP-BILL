@@ -16,10 +16,10 @@ from utils.read_ORF import list_interval_with_dico
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Frequency evolution analyse options")
 
-    # Commande :  python3 iteration_stats.py -f 0.15 -d 1100 -ec 10000 270000 -lc 2000 -s 1 -sa 1-10 -it 5 -o results/iteration_stats/P90
+    # Commande :  python3 iteration_stats.py -f 0.15 -d 500 -ec 20000 270000 -lc 3000 -s 1 -sa 1-10 -it 5 -o results/iteration_stats/P90
 
     parser.add_argument('-f', '--freq', type=float, help="Minimum allele frequency to filter", required=False, default=0.15)
-    parser.add_argument('-d', '--depth', type=int, help="Mininum depth to filter", required=False, default=1100)
+    parser.add_argument('-d', '--depth', type=int, help="Mininum depth to filter", required=False, default=500)
     parser.add_argument('-ec', '--edgecut', type=int, nargs='+', help="Bounds to cut huge repetitive insertions", required=False, default=[20000, 270000])
     parser.add_argument('-lc', '--lencut', type=int, help="Maximum variant lenght outside of the edge cut bounds", required=False, default=3000)
     parser.add_argument('-s', '--similarity', type=float, help="Minimum similarity required to group variants", required=False, default=1.)
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     cold_labels = [f"P{args.iteration}-{s}" for s in args.samples if s <= 5]
     heat_labels = [f"P{args.iteration}-{s}" for s in args.samples if s > 5]
 
-    data = [parse_vcf_noerror(build_vcf_path(s, args.iteration)) for s in args.samples]
+    data = [parse_vcf_noerror(build_vcf_path_test(s, args.iteration)) for s in args.samples]
     filtered_data = [[v for v in d if v['af'] > args.freq and max(v['depth'])> args.depth] for d in data]
     filtered_data = [[v for v in d if (args.edgecut[0] < v['pos'] and v['pos'] < args.edgecut[1]) or v['svlen'] < args.lencut] for d in filtered_data]
     
