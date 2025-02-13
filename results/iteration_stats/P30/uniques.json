@@ -1,0 +1,2197 @@
+[
+    {
+        "pos": 11384,
+        "id": [
+            "Sniffles2.DEL.E1S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -33,
+        "end": 11417,
+        "af": 0.518,
+        "depth": [
+            [
+                3150.0,
+                3145.0,
+                3142.0,
+                3174.0,
+                3178.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 16096,
+        "id": [
+            "Sniffles2.DEL.EDS0"
+        ],
+        "svtype": "DEL",
+        "svlen": -20,
+        "end": 16116,
+        "af": 0.234,
+        "depth": [
+            [
+                2976.0,
+                2934.0,
+                2946.0,
+                2956.0,
+                2970.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 16096,
+        "id": [
+            "Sniffles2.DEL.EES0"
+        ],
+        "svtype": "DEL",
+        "svlen": -50,
+        "end": 16146,
+        "af": 0.213,
+        "depth": [
+            [
+                2976.0,
+                2934.0,
+                2946.0,
+                2956.0,
+                2970.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 22620,
+        "id": [
+            "Sniffles2.INS.8S0",
+            "Sniffles2.INS.8S0"
+        ],
+        "svtype": "INS",
+        "svlen": 48,
+        "end": 22620,
+        "af": 0.663,
+        "depth": [
+            [
+                1191.0,
+                1174.0,
+                1177.0,
+                1172.0,
+                1202.0
+            ],
+            [
+                1659.0,
+                1639.0,
+                1636.0,
+                1635.0,
+                1708.0
+            ]
+        ],
+        "alt": "G",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 22914,
+        "id": [
+            "Sniffles2.INS.DS0"
+        ],
+        "svtype": "INS",
+        "svlen": 5867,
+        "end": 22914,
+        "af": 0.339,
+        "depth": [
+            [
+                3135.0,
+                3145.0,
+                3216.0,
+                3220.0,
+                3262.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-8"
+        ],
+        "choc": "heat",
+        "orfs": []
+    },
+    {
+        "pos": 31256,
+        "id": [
+            "Sniffles2.DEL.235S0",
+            "Sniffles2.DEL.100S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -27,
+        "end": 31283,
+        "af": 0.539,
+        "depth": [
+            [
+                1187.0,
+                1183.0,
+                1191.0,
+                1208.0,
+                1193.0
+            ],
+            [
+                1697.0,
+                1692.0,
+                1690.0,
+                1691.0,
+                1700.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 32540,
+        "id": [
+            "Sniffles2.DEL.234S0",
+            "Sniffles2.DEL.FFS0"
+        ],
+        "svtype": "DEL",
+        "svlen": -19,
+        "end": 32559,
+        "af": 0.389,
+        "depth": [
+            [
+                1196.0,
+                1166.0,
+                1157.0,
+                1155.0,
+                1182.0
+            ],
+            [
+                1716.0,
+                1687.0,
+                1679.0,
+                1680.0,
+                1688.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.FS0"
+        ],
+        "svtype": "INS",
+        "svlen": 30,
+        "end": 37879,
+        "af": 0.307,
+        "depth": [
+            [
+                1144.0,
+                1103.0,
+                1101.0,
+                1101.0,
+                1145.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.10S0"
+        ],
+        "svtype": "INS",
+        "svlen": 58,
+        "end": 37879,
+        "af": 0.124,
+        "depth": [
+            [
+                1144.0,
+                1103.0,
+                1101.0,
+                1101.0,
+                1145.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.11S0"
+        ],
+        "svtype": "INS",
+        "svlen": 72,
+        "end": 37879,
+        "af": 0.255,
+        "depth": [
+            [
+                1144.0,
+                1103.0,
+                1101.0,
+                1101.0,
+                1145.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.12S0"
+        ],
+        "svtype": "INS",
+        "svlen": 80,
+        "end": 37879,
+        "af": 0.226,
+        "depth": [
+            [
+                1144.0,
+                1103.0,
+                1101.0,
+                1101.0,
+                1145.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.10S0"
+        ],
+        "svtype": "INS",
+        "svlen": 18,
+        "end": 37879,
+        "af": 0.19,
+        "depth": [
+            [
+                1623.0,
+                1603.0,
+                1615.0,
+                1608.0,
+                1625.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.11S0"
+        ],
+        "svtype": "INS",
+        "svlen": 22,
+        "end": 37879,
+        "af": 0.386,
+        "depth": [
+            [
+                1623.0,
+                1603.0,
+                1615.0,
+                1608.0,
+                1625.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.13S0"
+        ],
+        "svtype": "INS",
+        "svlen": 78,
+        "end": 37879,
+        "af": 0.251,
+        "depth": [
+            [
+                1623.0,
+                1603.0,
+                1615.0,
+                1608.0,
+                1625.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.14S0"
+        ],
+        "svtype": "INS",
+        "svlen": 80,
+        "end": 37879,
+        "af": 0.179,
+        "depth": [
+            [
+                1623.0,
+                1603.0,
+                1615.0,
+                1608.0,
+                1625.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 37879,
+        "id": [
+            "Sniffles2.INS.BS0",
+            "Sniffles2.INS.9S0"
+        ],
+        "svtype": "INS",
+        "svlen": 74,
+        "end": 37879,
+        "af": 0.624,
+        "depth": [
+            [
+                3133.0,
+                3002.0,
+                3005.0,
+                3013.0,
+                3147.0
+            ],
+            [
+                4087.0,
+                3989.0,
+                3991.0,
+                3992.0,
+                4106.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 2,
+        "samples_found": [
+            "P30-8",
+            "P30-10"
+        ],
+        "choc": "heat",
+        "orfs": []
+    },
+    {
+        "pos": 47131,
+        "id": [
+            "Sniffles2.INS.17S0"
+        ],
+        "svtype": "INS",
+        "svlen": 18,
+        "end": 47131,
+        "af": 0.414,
+        "depth": [
+            [
+                1597.0,
+                1589.0,
+                1586.0,
+                1586.0,
+                1583.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 49268,
+        "id": [
+            "Sniffles2.DEL.255S0",
+            "Sniffles2.DEL.110S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -75,
+        "end": 49343,
+        "af": 0.981,
+        "depth": [
+            [
+                1088.0,
+                1087.0,
+                1093.0,
+                1090.0,
+                1093.0
+            ],
+            [
+                1579.0,
+                1574.0,
+                1566.0,
+                1571.0,
+                1570.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 53453,
+        "id": [
+            "Sniffles2.INS.27S0",
+            "Sniffles2.INS.1FS0"
+        ],
+        "svtype": "INS",
+        "svlen": 38,
+        "end": 53453,
+        "af": 0.277,
+        "depth": [
+            [
+                1076.0,
+                1102.0,
+                1094.0,
+                1096.0,
+                1097.0
+            ],
+            [
+                1579.0,
+                1591.0,
+                1593.0,
+                1596.0,
+                1596.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 54238,
+        "id": [
+            "Sniffles2.INS.BS0"
+        ],
+        "svtype": "INS",
+        "svlen": 4977,
+        "end": 54238,
+        "af": 0.866,
+        "depth": [
+            [
+                4328.0,
+                4356.0,
+                4343.0,
+                4325.0,
+                4291.0
+            ]
+        ],
+        "alt": "G",
+        "n_found": 1,
+        "samples_found": [
+            "P30-5"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 60281,
+        "id": [
+            "Sniffles2.DEL.268S0",
+            "Sniffles2.DEL.114S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -25,
+        "end": 60306,
+        "af": 0.49,
+        "depth": [
+            [
+                1057.0,
+                1056.0,
+                1056.0,
+                1070.0,
+                1081.0
+            ],
+            [
+                1633.0,
+                1638.0,
+                1645.0,
+                1636.0,
+                1652.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF40"
+        ]
+    },
+    {
+        "pos": 69696,
+        "id": [
+            "Sniffles2.INS.4BS0",
+            "Sniffles2.INS.24S0"
+        ],
+        "svtype": "INS",
+        "svlen": 27,
+        "end": 69696,
+        "af": 0.755,
+        "depth": [
+            [
+                1068.0,
+                1058.0,
+                1055.0,
+                1055.0,
+                1047.0
+            ],
+            [
+                1568.0,
+                1553.0,
+                1542.0,
+                1546.0,
+                1554.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 76048,
+        "id": [
+            "Sniffles2.DEL.279S0",
+            "Sniffles2.DEL.116S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -66,
+        "end": 76114,
+        "af": 0.79,
+        "depth": [
+            [
+                1030.0,
+                1025.0,
+                1022.0,
+                1028.0,
+                1029.0
+            ],
+            [
+                1554.0,
+                1545.0,
+                1551.0,
+                1542.0,
+                1542.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF45"
+        ]
+    },
+    {
+        "pos": 83046,
+        "id": [
+            "Sniffles2.INS.6AS0"
+        ],
+        "svtype": "INS",
+        "svlen": 39,
+        "end": 83046,
+        "af": 0.584,
+        "depth": [
+            [
+                989.0,
+                1000.0,
+                997.0,
+                985.0,
+                966.0
+            ]
+        ],
+        "alt": "A",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 83046,
+        "id": [
+            "Sniffles2.INS.6BS0"
+        ],
+        "svtype": "INS",
+        "svlen": 40,
+        "end": 83046,
+        "af": 0.141,
+        "depth": [
+            [
+                989.0,
+                1000.0,
+                997.0,
+                985.0,
+                966.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 83046,
+        "id": [
+            "Sniffles2.INS.34S0"
+        ],
+        "svtype": "INS",
+        "svlen": 39,
+        "end": 83046,
+        "af": 0.725,
+        "depth": [
+            [
+                1481.0,
+                1466.0,
+                1452.0,
+                1439.0,
+                1438.0
+            ]
+        ],
+        "alt": "A",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 83046,
+        "id": [
+            "Sniffles2.INS.35S0"
+        ],
+        "svtype": "INS",
+        "svlen": 40,
+        "end": 83046,
+        "af": 0.176,
+        "depth": [
+            [
+                1481.0,
+                1466.0,
+                1452.0,
+                1439.0,
+                1438.0
+            ]
+        ],
+        "alt": "A",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 83107,
+        "id": [
+            "Sniffles2.INS.69S0"
+        ],
+        "svtype": "INS",
+        "svlen": 12,
+        "end": 83107,
+        "af": 0.122,
+        "depth": [
+            [
+                993.0,
+                997.0,
+                985.0,
+                968.0,
+                970.0
+            ]
+        ],
+        "alt": "A",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 90594,
+        "id": [
+            "Sniffles2.INS.7DS0",
+            "Sniffles2.INS.3BS0"
+        ],
+        "svtype": "INS",
+        "svlen": 25,
+        "end": 90594,
+        "af": 0.467,
+        "depth": [
+            [
+                915.0,
+                895.0,
+                888.0,
+                891.0,
+                905.0
+            ],
+            [
+                1468.0,
+                1453.0,
+                1445.0,
+                1439.0,
+                1420.0
+            ]
+        ],
+        "alt": "G",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 90695,
+        "id": [
+            "Sniffles2.DEL.292S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -15,
+        "end": 90710,
+        "af": 0.751,
+        "depth": [
+            [
+                905.0,
+                888.0,
+                896.0,
+                895.0,
+                920.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF52"
+        ]
+    },
+    {
+        "pos": 90974,
+        "id": [
+            "Sniffles2.INS.7FS0"
+        ],
+        "svtype": "INS",
+        "svlen": 78,
+        "end": 90974,
+        "af": 0.152,
+        "depth": [
+            [
+                895.0,
+                895.0,
+                895.0,
+                905.0,
+                920.0
+            ]
+        ],
+        "alt": "A",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 91154,
+        "id": [
+            "Sniffles2.INS.80S0"
+        ],
+        "svtype": "INS",
+        "svlen": 84,
+        "end": 91154,
+        "af": 0.545,
+        "depth": [
+            [
+                891.0,
+                905.0,
+                914.0,
+                920.0,
+                927.0
+            ]
+        ],
+        "alt": "A",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 91154,
+        "id": [
+            "Sniffles2.INS.3ES0"
+        ],
+        "svtype": "INS",
+        "svlen": 84,
+        "end": 91154,
+        "af": 0.205,
+        "depth": [
+            [
+                1439.0,
+                1420.0,
+                1419.0,
+                1417.0,
+                1405.0
+            ]
+        ],
+        "alt": "A",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 91622,
+        "id": [
+            "Sniffles2.DEL.29AS0"
+        ],
+        "svtype": "DEL",
+        "svlen": -10,
+        "end": 91632,
+        "af": 0.619,
+        "depth": [
+            [
+                914.0,
+                923.0,
+                927.0,
+                932.0,
+                947.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 102486,
+        "id": [
+            "Sniffles2.DEL.2ABS0"
+        ],
+        "svtype": "DEL",
+        "svlen": -12,
+        "end": 102498,
+        "af": 0.384,
+        "depth": [
+            [
+                880.0,
+                877.0,
+                876.0,
+                876.0,
+                870.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 120042,
+        "id": [
+            "Sniffles2.INS.C8S0",
+            "Sniffles2.INS.5AS0"
+        ],
+        "svtype": "INS",
+        "svlen": 18,
+        "end": 120042,
+        "af": 0.363,
+        "depth": [
+            [
+                954.0,
+                926.0,
+                926.0,
+                915.0,
+                937.0
+            ],
+            [
+                1335.0,
+                1305.0,
+                1305.0,
+                1295.0,
+                1315.0
+            ]
+        ],
+        "alt": "G",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 131013,
+        "id": [
+            "Sniffles2.DEL.2D3S0",
+            "Sniffles2.DEL.133S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -33,
+        "end": 131046,
+        "af": 0.975,
+        "depth": [
+            [
+                995.0,
+                1008.0,
+                1014.0,
+                1016.0,
+                1006.0
+            ],
+            [
+                1349.0,
+                1362.0,
+                1366.0,
+                1365.0,
+                1376.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF68"
+        ]
+    },
+    {
+        "pos": 133271,
+        "id": [
+            "Sniffles2.DEL.2D2S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -12,
+        "end": 133283,
+        "af": 0.903,
+        "depth": [
+            [
+                984.0,
+                994.0,
+                988.0,
+                988.0,
+                997.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF69"
+        ]
+    },
+    {
+        "pos": 138818,
+        "id": [
+            "Sniffles2.INS.DS0"
+        ],
+        "svtype": "INS",
+        "svlen": 8855,
+        "end": 138818,
+        "af": 1.0,
+        "depth": [
+            [
+                4296.0,
+                4243.0,
+                4259.0,
+                4267.0,
+                4282.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-6"
+        ],
+        "choc": "heat",
+        "orfs": []
+    },
+    {
+        "pos": 143509,
+        "id": [
+            "Sniffles2.DEL.2E2S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -24,
+        "end": 143533,
+        "af": 0.104,
+        "depth": [
+            [
+                1013.0,
+                1016.0,
+                1022.0,
+                1024.0,
+                1036.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF78"
+        ]
+    },
+    {
+        "pos": 143509,
+        "id": [
+            "Sniffles2.DEL.2E5S0",
+            "Sniffles2.DEL.146S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -96,
+        "end": 143605,
+        "af": 0.903,
+        "depth": [
+            [
+                1013.0,
+                1016.0,
+                1022.0,
+                1022.0,
+                1028.0
+            ],
+            [
+                1294.0,
+                1308.0,
+                1314.0,
+                1312.0,
+                1293.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF78"
+        ]
+    },
+    {
+        "pos": 155446,
+        "id": [
+            "Sniffles2.DEL.30CS0",
+            "Sniffles2.DEL.143S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -33,
+        "end": 155479,
+        "af": 0.857,
+        "depth": [
+            [
+                1012.0,
+                1015.0,
+                1010.0,
+                1011.0,
+                993.0
+            ],
+            [
+                1343.0,
+                1342.0,
+                1344.0,
+                1347.0,
+                1345.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF84"
+        ]
+    },
+    {
+        "pos": 155446,
+        "id": [
+            "Sniffles2.DEL.30ES0",
+            "Sniffles2.DEL.145S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -66,
+        "end": 155512,
+        "af": 0.177,
+        "depth": [
+            [
+                1012.0,
+                1015.0,
+                1010.0,
+                1009.0,
+                991.0
+            ],
+            [
+                1343.0,
+                1342.0,
+                1344.0,
+                1344.0,
+                1338.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF84"
+        ]
+    },
+    {
+        "pos": 155479,
+        "id": [
+            "Sniffles2.INS.FS0"
+        ],
+        "svtype": "INS",
+        "svlen": 6668,
+        "end": 155479,
+        "af": 1.0,
+        "depth": [
+            [
+                2398.0,
+                2392.0,
+                2391.0,
+                2387.0,
+                2363.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-9"
+        ],
+        "choc": "heat",
+        "orfs": []
+    },
+    {
+        "pos": 165060,
+        "id": [
+            "Sniffles2.INS.139S0",
+            "Sniffles2.INS.91S0"
+        ],
+        "svtype": "INS",
+        "svlen": 18,
+        "end": 165060,
+        "af": 0.733,
+        "depth": [
+            [
+                903.0,
+                902.0,
+                911.0,
+                920.0,
+                917.0
+            ],
+            [
+                1355.0,
+                1371.0,
+                1370.0,
+                1381.0,
+                1380.0
+            ]
+        ],
+        "alt": "G",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 177568,
+        "id": [
+            "Sniffles2.DEL.31ES0",
+            "Sniffles2.DEL.15BS0"
+        ],
+        "svtype": "DEL",
+        "svlen": -80,
+        "end": 177648,
+        "af": 0.338,
+        "depth": [
+            [
+                950.0,
+                936.0,
+                941.0,
+                940.0,
+                949.0
+            ],
+            [
+                1372.0,
+                1355.0,
+                1353.0,
+                1353.0,
+                1358.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 178820,
+        "id": [
+            "Sniffles2.DEL.157S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -12,
+        "end": 178832,
+        "af": 0.137,
+        "depth": [
+            [
+                1374.0,
+                1386.0,
+                1388.0,
+                1391.0,
+                1376.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF97"
+        ]
+    },
+    {
+        "pos": 186552,
+        "id": [
+            "Sniffles2.DEL.15FS0"
+        ],
+        "svtype": "DEL",
+        "svlen": -11,
+        "end": 186563,
+        "af": 0.874,
+        "depth": [
+            [
+                1454.0,
+                1435.0,
+                1434.0,
+                1431.0,
+                1440.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 188010,
+        "id": [
+            "Sniffles2.DEL.324S0",
+            "Sniffles2.DEL.160S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -24,
+        "end": 188034,
+        "af": 0.901,
+        "depth": [
+            [
+                969.0,
+                980.0,
+                976.0,
+                986.0,
+                997.0
+            ],
+            [
+                1448.0,
+                1437.0,
+                1439.0,
+                1441.0,
+                1440.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF101"
+        ]
+    },
+    {
+        "pos": 188695,
+        "id": [
+            "Sniffles2.INS.15CS0",
+            "Sniffles2.INS.ADS0"
+        ],
+        "svtype": "INS",
+        "svlen": 18,
+        "end": 188695,
+        "af": 0.138,
+        "depth": [
+            [
+                986.0,
+                997.0,
+                997.0,
+                990.0,
+                970.0
+            ],
+            [
+                1441.0,
+                1440.0,
+                1439.0,
+                1440.0,
+                1402.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 188695,
+        "id": [
+            "Sniffles2.INS.15DS0",
+            "Sniffles2.INS.AES0"
+        ],
+        "svtype": "INS",
+        "svlen": 24,
+        "end": 188695,
+        "af": 0.813,
+        "depth": [
+            [
+                986.0,
+                997.0,
+                997.0,
+                990.0,
+                970.0
+            ],
+            [
+                1441.0,
+                1440.0,
+                1439.0,
+                1440.0,
+                1402.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 192550,
+        "id": [
+            "Sniffles2.INS.165S0"
+        ],
+        "svtype": "INS",
+        "svlen": 24,
+        "end": 192550,
+        "af": 0.835,
+        "depth": [
+            [
+                995.0,
+                986.0,
+                983.0,
+                988.0,
+                992.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 192550,
+        "id": [
+            "Sniffles2.INS.B5S0"
+        ],
+        "svtype": "INS",
+        "svlen": 24,
+        "end": 192550,
+        "af": 0.854,
+        "depth": [
+            [
+                1415.0,
+                1394.0,
+                1388.0,
+                1388.0,
+                1394.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 196282,
+        "id": [
+            "Sniffles2.INS.BS0"
+        ],
+        "svtype": "INS",
+        "svlen": 16622,
+        "end": 196282,
+        "af": 0.808,
+        "depth": [
+            [
+                3958.0,
+                3915.0,
+                3917.0,
+                3946.0,
+                3971.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-2"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 203513,
+        "id": [
+            "Sniffles2.DEL.34BS0",
+            "Sniffles2.DEL.174S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -22,
+        "end": 203535,
+        "af": 0.772,
+        "depth": [
+            [
+                1032.0,
+                1031.0,
+                1037.0,
+                1041.0,
+                1053.0
+            ],
+            [
+                1419.0,
+                1418.0,
+                1421.0,
+                1421.0,
+                1440.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 203527,
+        "id": [
+            "Sniffles2.DEL.34AS0",
+            "Sniffles2.DEL.173S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -13,
+        "end": 203540,
+        "af": 0.173,
+        "depth": [
+            [
+                1032.0,
+                1031.0,
+                1037.0,
+                1041.0,
+                1053.0
+            ],
+            [
+                1419.0,
+                1418.0,
+                1421.0,
+                1421.0,
+                1440.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 210810,
+        "id": [
+            "Sniffles2.DEL.359S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -18,
+        "end": 210828,
+        "af": 0.823,
+        "depth": [
+            [
+                1085.0,
+                1079.0,
+                1088.0,
+                1087.0,
+                1105.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF116"
+        ]
+    },
+    {
+        "pos": 210816,
+        "id": [
+            "Sniffles2.DEL.35AS0",
+            "Sniffles2.DEL.177S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -21,
+        "end": 210837,
+        "af": 0.171,
+        "depth": [
+            [
+                1085.0,
+                1079.0,
+                1088.0,
+                1087.0,
+                1105.0
+            ],
+            [
+                1437.0,
+                1426.0,
+                1429.0,
+                1432.0,
+                1447.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF116"
+        ]
+    },
+    {
+        "pos": 216443,
+        "id": [
+            "Sniffles2.INS.C9S0"
+        ],
+        "svtype": "INS",
+        "svlen": 90,
+        "end": 216443,
+        "af": 0.817,
+        "depth": [
+            [
+                1475.0,
+                1461.0,
+                1465.0,
+                1478.0,
+                1499.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 216443,
+        "id": [
+            "Sniffles2.INS.1FS0"
+        ],
+        "svtype": "INS",
+        "svlen": 99,
+        "end": 216443,
+        "af": 1.0,
+        "depth": [
+            [
+                2561.0,
+                2539.0,
+                2553.0,
+                2563.0,
+                2619.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-8"
+        ],
+        "choc": "heat",
+        "orfs": []
+    },
+    {
+        "pos": 216443,
+        "id": [
+            "Sniffles2.INS.12S0"
+        ],
+        "svtype": "INS",
+        "svlen": 99,
+        "end": 216443,
+        "af": 1.0,
+        "depth": [
+            [
+                3484.0,
+                3471.0,
+                3467.0,
+                3461.0,
+                3524.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-10"
+        ],
+        "choc": "heat",
+        "orfs": []
+    },
+    {
+        "pos": 216552,
+        "id": [
+            "Sniffles2.INS.1B1S0"
+        ],
+        "svtype": "INS",
+        "svlen": 78,
+        "end": 216552,
+        "af": 0.139,
+        "depth": [
+            [
+                1106.0,
+                1090.0,
+                1085.0,
+                1085.0,
+                1095.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 216552,
+        "id": [
+            "Sniffles2.INS.1B2S0"
+        ],
+        "svtype": "INS",
+        "svlen": 81,
+        "end": 216552,
+        "af": 0.89,
+        "depth": [
+            [
+                1106.0,
+                1090.0,
+                1085.0,
+                1085.0,
+                1095.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 218460,
+        "id": [
+            "Sniffles2.DEL.367S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -11,
+        "end": 218471,
+        "af": 0.33,
+        "depth": [
+            [
+                1111.0,
+                1111.0,
+                1115.0,
+                1115.0,
+                1126.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 229939,
+        "id": [
+            "Sniffles2.DEL.377S0",
+            "Sniffles2.DEL.18BS0"
+        ],
+        "svtype": "DEL",
+        "svlen": -17,
+        "end": 229956,
+        "af": 1.0,
+        "depth": [
+            [
+                1144.0,
+                1147.0,
+                1154.0,
+                1150.0,
+                1169.0
+            ],
+            [
+                1573.0,
+                1597.0,
+                1607.0,
+                1611.0,
+                1605.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 230496,
+        "id": [
+            "Sniffles2.INS.1BCS0"
+        ],
+        "svtype": "INS",
+        "svlen": 15,
+        "end": 230496,
+        "af": 0.897,
+        "depth": [
+            [
+                1154.0,
+                1164.0,
+                1169.0,
+                1175.0,
+                1174.0
+            ]
+        ],
+        "alt": "G",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 231446,
+        "id": [
+            "Sniffles2.INS.1C2S0"
+        ],
+        "svtype": "INS",
+        "svlen": 12,
+        "end": 231446,
+        "af": 0.902,
+        "depth": [
+            [
+                1174.0,
+                1177.0,
+                1179.0,
+                1161.0,
+                1174.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 240001,
+        "id": [
+            "Sniffles2.DEL.38CS0",
+            "Sniffles2.DEL.199S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -21,
+        "end": 240022,
+        "af": 0.684,
+        "depth": [
+            [
+                1151.0,
+                1166.0,
+                1169.0,
+                1170.0,
+                1177.0
+            ],
+            [
+                1675.0,
+                1690.0,
+                1705.0,
+                1703.0,
+                1696.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF139"
+        ]
+    },
+    {
+        "pos": 240022,
+        "id": [
+            "Sniffles2.DEL.38BS0"
+        ],
+        "svtype": "DEL",
+        "svlen": -13,
+        "end": 240035,
+        "af": 0.279,
+        "depth": [
+            [
+                1151.0,
+                1166.0,
+                1169.0,
+                1170.0,
+                1177.0
+            ]
+        ],
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF139"
+        ]
+    },
+    {
+        "pos": 254597,
+        "id": [
+            "Sniffles2.INS.20S0"
+        ],
+        "svtype": "INS",
+        "svlen": 4226,
+        "end": 254597,
+        "af": 0.615,
+        "depth": [
+            [
+                3118.0,
+                3083.0,
+                3093.0,
+                3092.0,
+                3115.0
+            ]
+        ],
+        "alt": "C",
+        "n_found": 1,
+        "samples_found": [
+            "P30-8"
+        ],
+        "choc": "heat",
+        "orfs": []
+    },
+    {
+        "pos": 256462,
+        "id": [
+            "Sniffles2.INS.20ES0",
+            "Sniffles2.INS.D6S0"
+        ],
+        "svtype": "INS",
+        "svlen": 39,
+        "end": 256462,
+        "af": 0.961,
+        "depth": [
+            [
+                1224.0,
+                1239.0,
+                1243.0,
+                1256.0,
+                1280.0
+            ],
+            [
+                1799.0,
+                1820.0,
+                1821.0,
+                1823.0,
+                1816.0
+            ]
+        ],
+        "alt": "G",
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 256462,
+        "id": [
+            "Sniffles2.INS.20FS0"
+        ],
+        "svtype": "INS",
+        "svlen": 40,
+        "end": 256462,
+        "af": 0.144,
+        "depth": [
+            [
+                1224.0,
+                1239.0,
+                1243.0,
+                1256.0,
+                1280.0
+            ]
+        ],
+        "alt": "G",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 256462,
+        "id": [
+            "Sniffles2.INS.D7S0"
+        ],
+        "svtype": "INS",
+        "svlen": 40,
+        "end": 256462,
+        "af": 0.185,
+        "depth": [
+            [
+                1799.0,
+                1820.0,
+                1821.0,
+                1823.0,
+                1816.0
+            ]
+        ],
+        "alt": "T",
+        "n_found": 1,
+        "samples_found": [
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 270719,
+        "id": [
+            "Sniffles2.INS.219S0"
+        ],
+        "svtype": "INS",
+        "svlen": 34,
+        "end": 270719,
+        "af": 0.218,
+        "depth": [
+            [
+                1342.0,
+                1328.0,
+                1320.0,
+                1347.0,
+                1353.0
+            ]
+        ],
+        "alt": "A",
+        "n_found": 1,
+        "samples_found": [
+            "P30-1"
+        ],
+        "choc": "cold",
+        "orfs": []
+    },
+    {
+        "pos": 272012,
+        "id": [
+            "Sniffles2.DEL.3AES0",
+            "Sniffles2.DEL.1A2S0"
+        ],
+        "svtype": "DEL",
+        "svlen": -24,
+        "end": 272036,
+        "af": 0.866,
+        "depth": [
+            [
+                1343.0,
+                1346.0,
+                1335.0,
+                1318.0,
+                1135.0
+            ],
+            [
+                1717.0,
+                1710.0,
+                1700.0,
+                1684.0,
+                1446.0
+            ]
+        ],
+        "n_found": 2,
+        "samples_found": [
+            "P30-1",
+            "P30-3"
+        ],
+        "choc": "cold",
+        "orfs": [
+            "CyHV3_ORF156"
+        ]
+    }
+]
