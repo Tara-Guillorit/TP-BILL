@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     parser.add_argument('-f', '--freq', type=float, help="Minimum allele frequency to filter", required=False, default=0.05)
     parser.add_argument('-d', '--depth', type=int, help="Mininum depth to filter", required=False, default=150)
-    parser.add_argument('-ec', '--edgecut', type=int, nargs='+', help="Bounds to cut huge repetitive insertions", required=False, default=[10000, 270000])
+    parser.add_argument('-ec', '--edgecut', type=int, nargs='+', help="Bounds to cut huge repetitive insertions", required=False, default=[20000, 270000])
     parser.add_argument('-lc', '--lencut', type=int, help="Maximum variant lenght outside of the edge cut bounds", required=False, default=2000)
     parser.add_argument('-s', '--similarity', type=float, help="Minimum similarity required to group variants", required=False, default=1.)
     parser.add_argument('-sa', '--sample', type=int, help="Sample of interest, only one (1 to 10)", required=True)
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     before_labels = [f"P{i}-{args.sample}" for i in args.iterations if i < 30]
     after_labels = [f"P{i}-{args.sample}" for i in args.iterations if i >= 30]
 
-    data = [parse_vcf_noerror(build_vcf_path_test(args.sample, i)) for i in args.iterations]
+    data = [parse_vcf_noerror(build_vcf_path(args.sample, i)) for i in args.iterations]
     filtered_data = [[v for v in d if v['af'] > args.freq and max(v['depth'])> args.depth] for d in data]
     filtered_data = [[v for v in d if (args.edgecut[0] < v['pos'] and v['pos'] < args.edgecut[1]) or v['svlen'] < args.lencut] for d in filtered_data]
 
@@ -89,9 +89,10 @@ if __name__ == "__main__":
     ax_3.set_yscale('log')
     ax_3.set_ylabel('Fréquence allélique')
     ax_3.set_xlabel('Profondeur maximal')
-    ax_3.set_title(f'Fréquence par rapport à la profondeur dans l\'échantillon {args.sample}')
+    ax_3.set_title(f'Fréquence par rapport à la profondeur\n dans l\'échantillon {args.sample}', pad=20)
     ax_3.legend()
 
+    plt.tight_layout()
     plt.savefig(figs_dir / "frequency_depth.pdf")
 
 
@@ -122,12 +123,14 @@ if __name__ == "__main__":
 
     ax1_.bar(x[0:int(0.2*steps)], y[0:int(0.2*steps)], width=3000, label="Non filtré")
     ax1_.bar(x[0:int(0.2*steps)], y_fil[0:int(0.2*steps)], width=3000, label="Filtré")
+    ax1_.set_ylim(ax1_.get_ylim()[0], 10000)
     ax1_.set_xlabel(f'Position de début par tranche de {size / steps}')
     ax1_.set_title(f"Taille moyenne des variants au début du génome\n dans l\'échantillon {args.sample}", pad=20)
     ax1_.legend()
 
     ax2_.bar(x[int(0.8*steps):steps], y[int(0.8*steps):steps], width=3000, label="Non filtré")
     ax2_.bar(x[int(0.8*steps):steps], y_fil[int(0.8*steps):steps], width=3000, label="Filtré")
+    ax2_.set_ylim(ax2_.get_ylim()[0], 10000)
     ax2_.set_xlabel(f'Position de début par tranche de {size / steps}')
     ax2_.set_title(f"Taille moyenne des variants à la fin du génome\n dans l\'échantillon {args.sample}", pad=20)
     ax2_.legend()
@@ -136,10 +139,8 @@ if __name__ == "__main__":
     plt.savefig(figs_dir / "len_by_pos.pdf")
 
 
-
-    # Filtering data
+    # Filtering and grouping data
     data = filtered_data
-
     grouped_by_it = merge_samples(data, it_labels, sim_thresold=args.similarity)
 
 
