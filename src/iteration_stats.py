@@ -65,7 +65,7 @@ if __name__ == "__main__":
     heat_labels = [f"P{args.iteration}-{s}" for s in args.samples if s > 5]
 
     data = [parse_vcf_noerror(build_vcf_path(s, args.iteration)) for s in args.samples]
-    filtered_data = [[v for v in d if (args.edgecut[0] < v['pos'] and v['pos'] < args.edgecut[1]) or v['svlen'] < args.lencut] for d in data]
+    filtered_data = [[v for v in d if (args.edgecut[0] < v['pos'] and v['pos'] < args.edgecut[1]) or abs(v['svlen']) < args.lencut] for d in data]
     filtered_data = [[v for v in d if v['af'] >= args.freq and v['depth'] >= args.depth] for d in data]
 
     all_variant = sum(data, [])
