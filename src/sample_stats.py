@@ -52,10 +52,94 @@ if __name__ == "__main__":
     before_labels = [f"P{i}-{args.sample}" for i in args.iterations if i < 30]
     after_labels = [f"P{i}-{args.sample}" for i in args.iterations if i >= 30]
 
-    data = [parse_vcf_noerror(build_vcf_path(args.sample, i)) for i in args.iterations]
-    data = [[v for v in d if v['af'] > args.freq and max(v['depth'])> args.depth] for d in data]
-    data = [[v for v in d if (args.edgecut[0] < v['pos'] < args.edgecut[1]) or v['svlen'] < args.lencut] for d in data]
- 
+    data = [parse_vcf_noerror(build_vcf_path_test(args.sample, i)) for i in args.iterations]
+    filtered_data = [[v for v in d if v['af'] > args.freq and max(v['depth'])> args.depth] for d in data]
+    filtered_data = [[v for v in d if (args.edgecut[0] < v['pos'] and v['pos'] < args.edgecut[1]) or v['svlen'] < args.lencut] for d in filtered_data]
+
+
+    # Distribution of frequency, depth
+    all_variant = sum(data, [])
+    all_filtered = sum(filtered_data, [])
+
+    af_distrib = [v["af"] for v in all_variant]
+    depth_distrib = [max(v["depth"]) for v in all_variant]
+
+    af_filtered = [v["af"] for v in all_filtered]
+    depth_filtered = [max(v["depth"]) for v in all_filtered]
+
+    fig, (ax_1, ax_2, ax_3) = plt.subplots(nrows=1, ncols=3, figsize=(18, 5))
+
+    ax_1.hist(af_distrib, bins=50, label="Non filtré")
+    ax_1.hist(af_filtered, bins=50, label="Filtré")
+    ax_1.set_xlabel('Fréquence allélique')
+    ax_1.set_ylabel('Nombre de variants')
+    ax_1.set_title(f"Fréquences alléliques de l'échantillon {args.sample}")
+    ax_1.legend()
+
+    ax_2.hist(depth_distrib, bins=50, label="Non filtré")
+    ax_2.hist(depth_filtered, bins=50, label="Filtré")
+    ax_2.set_xlabel('Profondeur maximal')
+    ax_2.set_ylabel('Nombre de variants')
+    ax_2.set_title(f"Profondeur d'aligment de l'échantillon {args.sample}")
+    ax_2.legend()
+
+    ax_3.plot(depth_distrib, af_distrib, 'o', label="Non filtré")
+    ax_3.plot(depth_filtered, af_filtered, 'o', label="Filtré")
+    ax_3.set_xscale('log')
+    ax_3.set_yscale('log')
+    ax_3.set_ylabel('Fréquence allélique')
+    ax_3.set_xlabel('Profondeur maximal')
+    ax_3.set_title(f'Fréquence par rapport à la profondeur dans l\'échantillon {args.sample}')
+    ax_3.legend()
+
+    plt.savefig(figs_dir / "frequency_depth.pdf")
+
+
+    # Distribution of length accross the genome
+    len_by_pos = [(v['pos'], abs(v['svlen'])) for v in all_variant]
+    len_by_pos_filter = [(v['pos'], abs(v['svlen'])) for v in all_filtered]
+
+    size = 275000
+    steps = 1000
+    x = [(size / steps) * i for i in range(0, steps)]
+    y = [[] for i in range(0, steps)]
+    y_fil = [[] for i in range(0, steps)]
+
+    for l in len_by_pos:
+        step = int(l[0] / (size / steps))
+        y[step].append(l[1])
+
+    for l in len_by_pos_filter:
+        step = int(l[0] / (size / steps))
+        y_fil[step].append(l[1])
+
+    y = [np.mean(y[i]) if len(y[i]) > 0 else 0 for i in range(len(y))]
+    y_fil = [np.mean(y_fil[i]) if len(y_fil[i]) > 0 else 0 for i in range(len(y_fil))]
+    len_by_step = [(x[i], y[i]) for i in range(len(x))]
+    len_by_step_filter = [(x[i], y_fil[i]) for i in range(len(x))]
+
+    fig, (ax1_, ax2_) = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
+
+    ax1_.bar(x[0:int(0.2*steps)], y[0:int(0.2*steps)], width=3000, label="Non filtré")
+    ax1_.bar(x[0:int(0.2*steps)], y_fil[0:int(0.2*steps)], width=3000, label="Filtré")
+    ax1_.set_xlabel(f'Position de début par tranche de {size / steps}')
+    ax1_.set_title(f"Taille moyenne des variants au début du génome\n dans l\'échantillon {args.sample}", pad=20)
+    ax1_.legend()
+
+    ax2_.bar(x[int(0.8*steps):steps], y[int(0.8*steps):steps], width=3000, label="Non filtré")
+    ax2_.bar(x[int(0.8*steps):steps], y_fil[int(0.8*steps):steps], width=3000, label="Filtré")
+    ax2_.set_xlabel(f'Position de début par tranche de {size / steps}')
+    ax2_.set_title(f"Taille moyenne des variants à la fin du génome\n dans l\'échantillon {args.sample}", pad=20)
+    ax2_.legend()
+
+    plt.tight_layout()
+    plt.savefig(figs_dir / "len_by_pos.pdf")
+
+
+
+    # Filtering data
+    data = filtered_data
+
     grouped_by_it = merge_samples(data, it_labels, sim_thresold=args.similarity)
 
 
@@ -162,6 +246,18 @@ if __name__ == "__main__":
         "types": types_dict,
         "lengths": len_distrib,
         "pairwise_sim": tl,
+        "frequency": {
+            "nofilt": af_distrib,
+            "filt": af_filtered
+        },
+        "depth": {
+            "nofilt": depth_distrib,
+            "filt": depth_filtered
+        },
+        "len_by_pos": {
+            "nofilt": len_by_step,
+            "filt": len_by_step_filter
+        }
     }
 
     results["iterations"] = args.iterations
