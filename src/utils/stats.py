@@ -76,3 +76,29 @@ def pairwise_similarity(grouped_sv, sample_labels):
             sims[i][j] = len(from_i_and_j) / len(from_i_or_j) if len(from_i_or_j) > 0 else 0
             sims[j][i] = sims[i][j]
     return sims
+
+
+def unique_variants(grouped_variants, group_1, group_2, label_1, label_2):
+    uniques = []
+    
+    for g in grouped_variants:
+        present_in = 0
+        counts = len(g)
+        for v in g:
+            if v[0] in group_1:
+                present_in = present_in | 1
+            elif v[0] in group_2:
+                present_in = present_in | 2
+            else:
+                raise ValueError("Unexpected label")
+        
+        if present_in == 1 or present_in == 2:
+            to_add = g[0][1].copy()
+            to_add["n_found"] = counts
+            to_add["samples_found"] = [v[0] for v in g]
+            to_add["ids"] = [v[1]["id"] for v in g]
+            to_add["group"] = label_1 if present_in == 1 else label_2
+            uniques.append(to_add)
+    
+    return uniques
+        
