@@ -1,4 +1,4 @@
-,pos,id,svtype,svlen,end,af,dv,dr,depth,alt,sample,iteration,group
+index,pos,id,svtype,svlen,end,af,dv,dr,depth,alt,sample,iteration,group
 0,1,Sniffles2.DUP.705S0,DUP,272677,272678,0.0,0,0,0,,1,15,0
 1,1,Sniffles2.DUP.3B3S0,DUP,272677,272678,0.0,0,0,0,,1,30,0
 2,1,Sniffles2.DUP.29FS0,DUP,272677,272678,0.0,0,0,0,,1,50,0
