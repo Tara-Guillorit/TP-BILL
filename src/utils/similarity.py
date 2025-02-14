@@ -113,8 +113,8 @@ def merge_samples_nolabel(samples, sim_thresold=1):
     # groupe les sv similaire ensemble
     sv_merged = []
     while len(sv_total) > 0: # tant qu'il reste des éléments à grouper
-        v1 = sv_total
-        del sv_total
+        v1 = sv_total[0]
+        del sv_total[0]
         group = [v1]
 
         j = 0

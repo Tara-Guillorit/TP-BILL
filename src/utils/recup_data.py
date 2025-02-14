@@ -2,6 +2,7 @@ from misc import build_vcf_path
 from read_vcf import parse_vcf_noerror
 from similarity import merge_samples_nolabel
 import pandas as pd
+import sys
 
 samples = list(range(1, 11))
 iterations = [15, 30, 50 , 65, 90]
