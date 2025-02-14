@@ -95,6 +95,49 @@ def merge_samples(samples, samples_labels, sim_thresold=1):
     return sv_merged
 
 
+def merge_samples_nolabel(samples, sim_thresold=1):
+    """ Groupe les variants similaires ensemble
+
+    Args:
+        samples (list): une liste contenant, pour chaque échantillon (p90-1, p90-2, ...) une liste de variants
+        samples_labels (list): le label correspondant à chaque liste de variants dans <samples>
+        sim_thresold (float): proportion de similarité minimum pour grouper deux variants
+
+    Return:
+        list : la liste des groupes des variants, chaque groupe représenté par une liste de tuple sous la forme (échantillon d'origine, variant)
+        exemple => [ [(sample_0, {variant ...}), (sample_3, {variant ...})], [(sample_x, {var ...})], ...]
+    """
+    # merge toute les sv dans une liste de tuples (échantillon d'origin, variant)
+    sv_total = sorted(samples, key=lambda x: x["pos"])
+
+    # groupe les sv similaire ensemble
+    sv_merged = []
+    while len(sv_total) > 0: # tant qu'il reste des éléments à grouper
+        v1 = sv_total
+        del sv_total
+        group = [v1]
+
+        j = 0
+        while j < len(sv_total):
+            v2 = sv_total[j]
+
+            if v2["end"] < v1["pos"]: # v2 finit avant le début de v1 (pas encore d'intersection possible)
+                j += 1
+                pass
+            if v2["pos"] > v1["end"]: # v2 et toutes les prochaines sv commence apres la fin de v1 (plus aucune intersection possible)
+                break
+
+            if variant_equal(v1, v2, sim_thresold): # add to group, delete from tab, do not increment
+                group.append(v2)
+                del sv_total[j]
+            else:
+                j += 1
+
+        sv_merged.append(group)
+
+    return sv_merged
+
+
 def contain_from_sample(sample_label, group):
     """ Détermine si un groupe de variations contient une variation de l'échantillon <sample_id>
 
