@@ -1,6 +1,6 @@
 from misc import build_vcf_path
 from read_vcf import parse_vcf_noerror
-from similarity import merge_samples_nolabel
+from similarity import merge_samples
 import pandas as pd
 import sys
 
@@ -18,7 +18,7 @@ for s in samples:
         all_var += data
     
 print("grouping variants")
-grouped = merge_samples_nolabel(all_var, 1)
+grouped = merge_samples(all_var, 1)
 
 flat_grouped = []
 for i, g in enumerate(grouped):
