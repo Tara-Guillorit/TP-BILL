@@ -4,6 +4,7 @@ import tempfile
 from contextlib import contextmanager
 import re
 import os
+import numpy as np
 #cette fonction prend en entrée le nom de du fichier vcf et donne en sorti une liste de dico qui contiene les valeur:
 # { 'pos': , 'id': , 'svtype': , 'svlen': , 'end': , 'af': }
 
@@ -26,6 +27,16 @@ def temp_file_fixed(nom_vcf):
         # Ensure the file is closed and deleted after use
         os.remove(temp_file.name)
 
+
+def get_dr_dv(record, af):
+    called = record.get_unknowns() + record.get_hom_refs() + record.get_hom_alts() + record.get_hets()
+    if len(called) == 0:
+        print("None found")
+        return 0, 0
+    elif len(called) > 1:
+        print(f"{len(called)} founds")
+    return called[0].data.DR, called[0].data.DV
+
 def parse_vcf (nom_vcf):
         """ Retourne la liste des variants structurelles contenus dans <nom_vcf> sous la forme d'une liste de dictionnaire
             Chaque variation est sous la forme {'id': str, 'pos': int, 'end': int, 'svlen': int, 'svtype': str, 'depth': list[int], 'af': float}
@@ -38,9 +49,13 @@ def parse_vcf (nom_vcf):
             for record in vcf_reader:
                 dico = {}
                 af = record.INFO['AF'] if 'AF' in record.INFO else 0
-                dico.update({'pos':record.POS , 'id':record.ID , 'svtype':record.INFO['SVTYPE'], 'svlen':record.INFO['SVLEN'], 'end':record.INFO['END'],'af': af, 'depth': record.INFO['COVERAGE']})
+                dr, dv = get_dr_dv(record, af)
+                
+                dico.update({'pos':record.POS , 'id':record.ID , 'svtype':record.INFO['SVTYPE'], 'svlen':record.INFO['SVLEN'], 'end':record.INFO['END'],'af': af, 'dv': dv, 'dr': dr, 'depth': dr+dv})
                 if dico['svtype'] == 'INS':
                     dico['alt'] = str(record.ALT[0])
+                else:
+                    dico['alt'] = ""
         
                 list_vcf.append(dico)
             return list_vcf
