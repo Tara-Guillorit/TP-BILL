@@ -1,0 +1,3 @@
+index,pos,id,svtype,svlen,end,af,dv,dr,depth,alt,ref,sample,iteration,group,choc,period,orfs,families
+1091,90594,Sniffles2.INS.112S0,INS,25,90594,0.004,19,4757,4776,GCTCGACCTTATTCCGTTCTCTCAT,N,2,90,368,cold,after,['CyHV3_ORF52'],[]
+1185,91622,Sniffles2.DEL.2BDS0,DEL,-10,91632,0.015,11,734,745,N,ATTTTGTGAT,10,90,410,heat,after,['CyHV3_ORF52'],[]
