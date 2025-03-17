@@ -1,6 +1,3 @@
-import numpy as np
-
-
 def seq_identity(s1, s2):
     identity = 0
     for i in range(len(s1)):

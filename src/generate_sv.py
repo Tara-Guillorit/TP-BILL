@@ -17,7 +17,7 @@ def get_ref_seq(pos, end):
 def delete(src, pos, end, offset):
     """ Calcule la séquence src mutée par une délétion de pos à end (inclues)
         pos et end sont les position de la délétion dans le génome
-            ATTENTION : dans les VCF, la position end indique la position qui suit la délétion (il faut enlever 1)
+            WARNING : dans les VCF, la position end indique la position qui suit la délétion (il faut enlever 1)
         offset correspond à la position de la séquence src dans le génome (sa première base)
 
         Retourne la séquence source et la séquence muté (avec des '-' pour l'insertion)
@@ -47,7 +47,32 @@ def insert(src, pos, ins, offset):
     return src_mut, dest
 
 def get_complement(src):
+    """ Donne la séquence inverse complément sous forme string
+    """
     return str(Seq(src).reverse_complement())
+
+
+def search_stop_onframe(seq):
+    seq_trim = seq.replace("-", "")
+    for i in range(0, len(seq_trim) - 3, 3):
+        if seq_trim[i:i+3] == "TGA" or seq_trim[i:i+3] == "TAA" or seq_trim[i:i+3] == "TAG":
+            print(f"\t{colored(f'BINGO', 'red')} : Codon STOP found on frame at position {i}")
+
+
+def search_start_stop(seq, pos):
+    seq_trim = seq.replace("-", "")
+    for i in range(len(seq_trim) - 2):
+        cod = seq_trim[i:i+3]
+        if cod in ["TGA", "TAA", "TAG"]:
+            print(f"\tCodon STOP found in position {i}, frame {colored(f'(+{(i+pos) % 3})', 'red')}")
+        if cod == "ATG":
+            print(f"\tCodon START found in position {i}, frame {colored(f'(+{(i+pos) % 3})', 'red')}")
+        
+        if cod in ["TCA", "TTA", "CTA"]:
+            print(f"\tCodon STOP found in position {i}, frame {colored(f'(-{(i+pos) % 3})', 'blue')}")
+        if cod == "CAT":
+            print(f"\tCodon START found in position {i}, frame {colored(f'(-{(i+pos) % 3})', 'blue')}")
+
 
 
 orfs = {}
@@ -78,116 +103,94 @@ for _, row in candidats.iterrows():
 
     for orf in var_orfs:
         print()
-        print(f"\tAnalyse orf {orf["id"]} at positions {orf["location"]}")
+        print(f"Analyse orf {orf["id"]} at positions {orf["location"]}")
+        print()
         if len(orf["location"]) > 1:
-            print(f"\t{colored('ATTENTION', 'red')} : the orf has multiple exons")
+            print(f"\t{colored('WARNING', 'red')} : the orf has multiple exons")
+        if not orf["complement"]:
+            print(f"\tORF is on frame {colored(f'+{(orf["start"]-1) % 3}', 'red')}")
+        else:
+            print(f"\tORF is on frame {colored(f'-{(orf["start"]-1) % 3}', 'blue')}")
+
         gene_seq = get_ref_seq(orf["start"], orf["end"])
         try:
             if row["svtype"] == "INS":
                 ref, alt = insert(gene_seq, pos, row["alt"], orf["start"])
-                if orf["complement"]:
-                    ref, alt = get_complement(ref), get_complement(alt)
-                print("\tResult of the insertion")
-                print("\tREF :", ref)
-                print("\tALT :", alt)
-                if ref.count("-") % 3 != 0:
-                    print(f"\n\t{colored('BINGO', 'red')}: cadre de lecture décalé")
             else:
                 ref, alt = delete(gene_seq, pos, end, orf["start"])
-                if orf["complement"]:
-                    ref, alt = get_complement(ref), get_complement(alt)
-                print("\tResult of the deletion")
-                print("\tREF :", ref)
-                print("\tALT :", alt)
-                if alt.count("-") % 3 != 0:
-                    print(f"\n\t{colored('BINGO', 'red')}: cadre de lecture décalé")
+
+            print()
+            if (ref.count("-") + alt.count("-")) % 3 != 0:
+                print(f"\n\t{colored('BINGO', 'red')}: orf is frameshifted !")
+
+            if orf["complement"]:
+                ref, alt = get_complement(ref), get_complement(alt)
+            search_stop_onframe(alt)
+
+            print()
+            print(f"\tResult of the {row["svtype"]} :")
+            print("\tREF :", ref)
+            print("\tALT :", alt)
+            
             
 
         except Exception:
-            print("\tThe variant is not included inside the ORF, searching around the variant")
+            print(f"\t{colored('WARNING', 'red')} : The variant is not included inside the ORF, searching around the variant\n")
             
             if row["svtype"] == "INS":
                 src_seq = get_ref_seq(pos - 1, end + 2)
                 ref, alt = insert(src_seq, pos, row["alt"], pos-1)
-                if orf["complement"]:
-                    ref, alt = get_complement(ref), get_complement(alt)
-                print("\tResult of the insertion")
-                print("\tREF :", ref)
-                print("\tALT :", alt)
+                search_start_stop(alt, pos-2)
             else:
                 src_seq = get_ref_seq(pos - 2, end + 2)
                 ref, alt = delete(src_seq, pos, end, pos-2)
-                if orf["complement"]:
-                    ref, alt = get_complement(ref), get_complement(alt)
-                print("\tResult of the deletion")
-                print("\tREF :", ref)
-                print("\tALT :", alt)
+                search_start_stop(alt, pos-3)
 
-            if "TGA" in alt.replace("-", "") or "TAG" in alt.replace("-", "") or "TAA" in alt.replace("-", ""):
-                print(f"\t\t{colored('BINGO', 'red')} : un codon stop est dans la séquence alt")
-            if "ATG" in alt.replace("-", ""): 
-                print(f"\t\t{colored('BINGO', 'red')} : un codon start est dans la séquence alt")
+            if orf["complement"]:
+                ref, alt = get_complement(ref), get_complement(alt)
+
+            print()
+            print(f"\tResult of the {row["svtype"]} :")
+            print("\tREF :", ref)
+            print("\tALT :", alt)
+
     
     print("\n==================================================")
 
 
-
-#orf_tot = get_ref_seq(24962, 29147)
-#orf_rf = orf_tot[:25538-24962+1] + orf_tot[25642-24962:]
+#ref = get_ref_seq(262177 ,265177)
+#ins = "ACACTTCAAGAA"
 #
-#expect = """
-#    ATGGCTTCAACAACGACGCCTTCTGCTTCAACGACACCAACAACAACACCCGCAGCGGTACCCACCAAGACAACCACCAA
-#    GACATCATCGGCGACCGAAAATGGCGCAAGCACACGAGAGTTTGAGTGGGTCAGGTTGTGCGGAGGCACCGTCGAGAGGG
-#    CACCGTGGACGTGCGTCTTTGTGACTTCCACCGTCGAGAGTCTCGACAGGTTCAATCGCGGCGCCTCTCTCTTCTCCGCC
-#    AAGCACACCATCACCAAGAGCGAGTGCAGGCGCCTCAACGCGCTCTGGAGCGCTCTGAGCGACACCGACAAACAGAAGGC
-#    GGCGTGGACGATGGCCGGCATCCTCGACAGATGCGACAATCACGCCTACGCGCTCGGCAAGGCCTCGACCATGCCCGAGG
-#    TCGTCAAGAGGTGCCTGACGCTCTGCTCCGTGAGGCTGCCCCTCGCTGACGATCAGGACCTGCTCGAGCATCGCAAGTCG
-#    ACGCCGCTCTGCGCCAGGGCCGTCTCGCTGCTGGCTCACCCTGCTCCACGCGACCTCTCCGCAGAGGCGCTCACCACCCT
-#    CAGGACCGTCGCCTGCTTGGCCCAGCTCAACAGGCTGCTCACCGTCCTCGCACCCGTCAGACCCGACGTCTCCATGCCCG
-#    CCAGTCCCTTCGCAGAAGTCACGGACCTCACCAGGGAGTGGATACGATGGGCCCTCGCGCACTACAGGGGAGGCAAGCAG
-#    TGGTACGCTCACCAGATCGCCGCCTCGAACGTCGTCGTCGGGTTGGTGCTCTACGACAGAGAGGCCTGCGCCAAGCCGTC
-#    GCAGCCCATCGCCTCCCCCATGCCCATCTTCATGCCGCCTTCGCCCCAGCAACAACAGGACCTGCAGGAGCTGGAGCTGG
-#    AGTTGGCGCAAGCACACGAGGTCTTTACAGGTGGGTTCGAGGTGATGGACGAGCTGGTAGAGTCCGTGCGCACCTTCACC
-#    TCGCAGAGCTCGGCCTACGACGAGATGGCCATGGACCTCGAGGAGCTGCTCTCGGGACCCGTGCCCGAACAAGAAGTCGA
-#    CATCGACCAAGCCACACTCCGCGACACAGGCCTCGAAGCCATCCACCCATGCCAAGACCACGACTACCCGCACCACGAGT
-#    TTGGGACCGTCACCGAGGCGCAGGCCGACGGACACGCCGAGCCCGTCCAGGGCTCACTCGCCACCCTCTTTGGACCCGTC
-#    CAGGTCGGCACCGAGATCGCCGCCGAGACGACAGCGACTGCCTTCATCAAAGAACGAGAGGACGGCACCTACCTCTTTGC
-#    CGTGCCCAGCGGCCTCATCGACGTGCACTACTGGCCCACACTCATGCAGGTCCTGCTCCAGCCCAACGTGCCCTCCACCG
-#    TCTACCTCGTCCTCAAGAAAACGGACATGCCCATCCGCAGAGGCACCCTCAGAGTCAAGGCCAACGCGTCCACCACGCTA
-#    CAAGCCAGAAACAGATGCGCCGAGATGAGGGTGCCCTCGGGATCGGAGGCCAGCGGCATGCTGCAGATGTGGAGGCCAGA
-#    GGGACTCTACTTTGAGACGTGCGGAGCCAACAAACCCATCCTCAGGTGCCCTTACCACGCCGACGAGGAGAGCGCCGACG
-#    TGCCCTTCGTCCAGATGGTGCGACTCTGCAAGTACCTCAGACACATCAACCACTGGCTCGACGCCGCCGAAGATCACTCC
-#    GACCCAGAGATCGCCGCGCACGTCGGGATCAGGCGCAGACAGGGACTCATGGCCGAGATCGTCAAGGTGGCCATGAGCAC
-#    CCTCCTAGAGAGGTCTGCCGTCGCCGCTATCCATCACAGCGACACGCCGACTCCTCACCCCGCCAACATGATATCATCGT
-#    TCGCCAACAACACCACCGTCGTCTCGGGCGCCTTCAGCACCCCCGACCAGTTCACGCCGTACGGCACCACGCCGCAGTTT
-#    ATCCACCCGCACCAGACGCTCGTCAGACAGTCGGTACCAGTGCTCCATCAGCAGCAGCAGATCCCCATCCTCGACTCTGG
-#    CGACGCGCTCTCGGCCATCATCGGCCAGACGCTCATCACCGACGGCGAAGAGGCCAACAGAAACATCACGATGGTCGACG
-#    TGCCCGTCATCCGCATGGAACATCTGCAGAGGCTCCAGCAGACCTTCCAGATGGTACAAGTGCCGCAAGGACACGAGGGG
-#    CAGTTTGTGTGGAACGCCGTCGCACAAGGCCAGACGGTCGCCACGGGAGGAGAGTACGAGGCGGCGCAGATCAGCATCGC
-#    AGACACCAACAGGTACTCGGCCGAGGTCCCAGAGTCTGCCAGAGAGATCATGCCTCCCACGCCTTACTGCCTGCACCCCG
-#    TGCAGCTCGAGTACTACGATCCGAAACCCGTGGAAGGCGAGAGGGACGAGGAGCCCTACCAGACCACTACCGTCGAGGGC
-#    ATCGTGCAAGGCGCGCCGCTCAAGAGGAGCCAGATGCCGCTCTACAACAAGGACCCGTCCTGCGCCTTCTTCATCCCCAT
-#    GAAGGGCGTCAGGGACCCATCAGAGATCCCGCAAGAACACTACGAGGACGCGAGCCGCATGGCCTGCGAGTACGAGGAGA
-#    GGCTCCGCAGCAAGACCAAGGGCAAGAAGAAGGCATTCAACACTTGCGACGCCATGGCATATGCCCCCACACACTACGCC
-#    GCGCAGTCTTACGGCGACGGTCCAGACGGGCCCTTCTACCACGATCTGGGCAACGCGTTCAGGTACCACGAGAGACACTT
-#    TCTGCCTCCCCTCAACAACACCTACGACACCATCAAGAGACGAGCGATGGGGCAGGAGAAGGCTCCGCCGGGTGCCAGGT
-#    CCATCGACGCCCTCGTCACTTCGTTCTGGGCCACTCACCCCAACACCCGAGTCTTCTACGACGAGCTCGTCACCCTCGTC
-#    CGCAATCAGAACTCGCAGCCAGAGTACCTCAAGCAGTACTACGCTCACGCCAACCTCAACCCCTCGCCAGACAGCCCGGC
-#    AGCCCTCAAGCTCACCACAAACATCTCGGGAGATCCCATCAAGGACGGCCTCACGCTCTTCTTTCTGGCCGTGGAGTACT
-#    TTGGGCACAGGCCGCAGACCGTCGTCTGGTGGGCCCGCACCAAGACGCTCGGAGAGCTCCTCACCGACGACTACTGGGCC
-#    AGGTTCATCACCATGTGGGGATGCTGGAAGAAGATGATCGTGAGGCTGGCCGGCGGGGACATGTGCGCCAACGTTCGCAA
-#    CGCGGTCAGGGCGCACAGGCACGTTGGCGTGGAAGAATTCCACAAGAAAGTCACAGACGGTCTCCAGGCAGTCACTCGCA
-#    TGCACACCGGCGTCTTGCCATTCATGGGAGACAGAGTCGAGCCCCTACCACAGCAGCCCGTCCACCTCAGGCCCTACACC
-#    AACAGCCACAACAGGTCCATGGCCCAGTCCCTCGTCGACGCATACAGCACCAACGGCAAGAGGACCTGCAACAACAGGGA
-#    GCCCGTCGTGCCGCGCAAGCAGCACGCCGTCCCCTTCTTTCTACCAGACAAGACGCTCATGCTGGCGCTCAAGCAGGGCC
-#    ACTTTATGGACGAGTACGCCTTCGTGCCCATCAGAGCCGCGCCGATGAGAGACAAGCAGAGCCTGGGATTCGACCCCAAG
-#    TCTCCCTCCAACACCTGCAACCGGGAGGACAACGCCGCCACCATGAACCTGACCAACATCGTCTTCTGCAAAAACACCAA
-#    CCAAGAGATCGGCTCCAACAACAACTCTAGACGCATCCTGGGAGCAGAGACGAGGGGACTGGCGCAGTGCGAGGCAGACA
-#    ACCTGGAGCCCCGCATCACCAACCTGCCCTGCGAACCTCTGGGCGCCCTCGACCTCAGCCTCAGAGTCAAACAGACGCCG
-#    TACCCAGACGCCGTCATCTTCAAGACCATCCAACCCTCTCCCAACCCCACATCAGCCAACGAACATAGACCCGACCCGGC
-#    CACCTGCTCTTTCGTGGAGATCACAGCCTACATGGAGCCGCAAAGCACCACTCAGAGTCCTCCCATGGCCCTCTCTACAC
-#    CCTCACCCCGCTACTCTCCCTCTTCTTCCAACACGTTACCCTCGCTGTCTTCTGAACCCTCACGAAAACGCCGCAGAACA
-#    TGA
-#""".replace("\n", "").replace("\t", "").replace(" ", "")
+#ref, alt = insert(ref, 265177, ins, 262177)
 #
-#print(orf_rf == expect)
+#
+#stop = None
+#for i in range(len(alt), 2, -1):
+#    cod = alt[i-3:i]
+#    if cod in ["TGA", "TAA", "TAG"]:
+#        stop = i - 3
+#        break
+#
+#alt = alt[:stop+3]
+#print(f"Codon stop {alt[-3:]} found at position {262177 + stop}, on frame {(262177 - 1 + stop) % 3}")
+#
+#prev_stop = None
+#for i in range(len(alt)-3, 2, -3):
+#    cod = alt[i-3:i]
+#    if cod in ["TGA", "TAA", "TAG"]:
+#        prev_stop = i - 3
+#        break
+#
+#alt = alt[prev_stop:]
+#print(f"Previous codon stop {alt[:3]} found at position {262177 + prev_stop}, on frame same frame")
+#
+#start = None
+#for i in range(0, len(alt)-2, 3):
+#    cod = alt[i:i+3]
+#    if cod == "ATG":
+#        start = i
+#        break
+#
+#alt = alt[start:]
+#print(f"Codon start of ORF found at position {262177 + prev_stop + 3 + start}\n")
+#print(alt)
